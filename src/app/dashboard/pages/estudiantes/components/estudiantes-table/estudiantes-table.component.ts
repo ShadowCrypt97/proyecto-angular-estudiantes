@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Student } from '../../models/student.model';
 
 @Component({
   selector: 'app-estudiantes-table',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./estudiantes-table.component.scss']
 })
 export class EstudiantesTableComponent {
+  displayedColumns: string[] = ['id', 'fullName', 'email', 'registrationDate', 'actions'];
 
+  @Input()
+  dataSource: Student[] = [];
+
+  @Output()
+  deleteDoctor = new EventEmitter<Student>();
+
+  @Output()
+  editDoctor = new EventEmitter<Student>();
+
+  constructor() { }
 }

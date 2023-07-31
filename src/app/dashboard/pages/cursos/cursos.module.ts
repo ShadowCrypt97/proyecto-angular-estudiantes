@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CursosComponent } from './cursos.component';
 import { CursosFormDialogsComponent } from './components/cursos-form-dialogs/cursos-form-dialogs.component';
 import { CursosTableComponent } from './components/cursos-table/cursos-table.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { CursosTableComponent } from './components/cursos-table/cursos-table.com
     CursosTableComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   exports: [
     CursosComponent
