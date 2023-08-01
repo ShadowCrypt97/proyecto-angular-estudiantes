@@ -1,9 +1,9 @@
 <div class="mb-5">
-    <button mat-flat-button (click)="onCreateDoctor()" color="primary" type="button">
+    <button mat-flat-button (click)="onCreateStudent()" color="primary" type="button">
         <mat-icon>add</mat-icon>
         Create Students
     </button>
 </div>
 
-<app-estudiantes-table [dataSource]="(students$|async)||[]" (deleteDoctor)="onDeleteDoctor($event)"
-    (editDoctor)="onEditDoctor($event)"></app-estudiantes-table>
+<app-estudiantes-table [dataSource]="(students$|async)||[]" (deleteStudent)="onDeleteStudent($event)"
+    (editStudent)="onEditStudent($event)"></app-estudiantes-table>

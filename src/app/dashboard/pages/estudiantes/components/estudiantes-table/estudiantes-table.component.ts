@@ -13,10 +13,10 @@ export class EstudiantesTableComponent {
   dataSource: Student[] = [];
 
   @Output()
-  deleteDoctor = new EventEmitter<Student>();
+  deleteStudent = new EventEmitter<Student>();
 
   @Output()
-  editDoctor = new EventEmitter<Student>();
+  editStudent = new EventEmitter<Student>();
 
   constructor() { }
 }

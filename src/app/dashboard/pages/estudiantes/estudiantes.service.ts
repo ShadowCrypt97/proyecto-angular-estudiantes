@@ -39,17 +39,17 @@ export class EstudiantesService {
 
   }
 
-  loadUsers(): void {
+  loadStudents(): void {
     STUDENT_DB.subscribe({
       next: (studentsfromDB) => this._students$.next(studentsfromDB)
     })
 
   }
 
-  getDoctors(): Observable<Student[]> {
+  getStudents(): Observable<Student[]> {
     return this.students$
   }
-  createDoctor(student: CreateStudent): void {
+  createStudents(student: CreateStudent): void {
     this.students$.pipe(take(1)).subscribe({
       next: (actualArray) => {
         this._students$.next([...actualArray, { ...student, id_student: actualArray.length + 1 }])
@@ -57,7 +57,7 @@ export class EstudiantesService {
     })
   }
 
-  updateDoctorById(id: number, studentUpdated: UpdateStudent): void {
+  updateStudentById(id: number, studentUpdated: UpdateStudent): void {
     this.students$.pipe(take(1)).subscribe({
       next: (actualArray) => {
         this._students$.next(
@@ -67,7 +67,7 @@ export class EstudiantesService {
     })
   }
 
-  deleteDoctorById(id: number): void {
+  deleteStudentById(id: number): void {
     this.students$.pipe(take(1)).subscribe({
       next: (actualArray) => {
         this._students$.next(actualArray.filter((studentToDelete) => studentToDelete.id_student !== id))

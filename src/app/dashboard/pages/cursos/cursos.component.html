@@ -1,1 +1,9 @@
-<p>cursos works!</p>
+<div class="mb-5">
+    <button mat-flat-button (click)="onCreateCourse()" color="primary" type="button">
+        <mat-icon>add</mat-icon>
+        Create Courses
+    </button>
+</div>
+
+<app-cursos-table [dataSource]="(courses$|async)||[]" (deleteCourse)="onDeleteCourse($event)"
+    (editCourse)="onEditCourse($event)"></app-cursos-table>

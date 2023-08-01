@@ -16,18 +16,18 @@ export class EstudiantesComponent {
   constructor(private matDialog: MatDialog,
     private studentService: EstudiantesService,
     private notificationService: NotificationService) {
-    this.studentService.loadUsers();
-    this.students$ = this.studentService.getDoctors();
+    this.studentService.loadStudents();
+    this.students$ = this.studentService.getStudents();
   }
 
-  onCreateDoctor(): void {
+  onCreateStudent(): void {
     this.matDialog
       .open(EstudiantesFormDialogsComponent)
       .afterClosed()
       .subscribe({
         next: (v) => {
           if (v) {
-            this.studentService.createDoctor({
+            this.studentService.createStudents({
               name: v.name,
               surname: v.surname,
               email: v.email,
@@ -39,17 +39,17 @@ export class EstudiantesComponent {
       });
   }
 
-  onDeleteDoctor(student: Student): void {
+  onDeleteStudent(student: Student): void {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete student ${student.name}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          this.studentService.deleteDoctorById(student.id_student);
+          this.studentService.deleteStudentById(student.id_student);
           this.notificationService.sendSuccessNotification(`The student ${student.name} has been deleted.`, 'Deleted!');
         }
       })
   }
 
-  onEditDoctor(studentToEdit: Student): void {
+  onEditStudent(studentToEdit: Student): void {
     this.matDialog
       .open(EstudiantesFormDialogsComponent, {
         data: studentToEdit
@@ -58,7 +58,7 @@ export class EstudiantesComponent {
       .subscribe({
         next: (studentUpdated) => {
           if (studentUpdated) {
-            this.studentService.updateDoctorById(studentToEdit.id_student, studentUpdated);
+            this.studentService.updateStudentById(studentToEdit.id_student, studentUpdated);
             this.notificationService.sendSuccessNotification('Student modified succesfully');
           }
         }

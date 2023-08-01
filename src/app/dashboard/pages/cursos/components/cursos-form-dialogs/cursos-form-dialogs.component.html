@@ -1,1 +1,46 @@
-<p>cursos-form-dialogs works!</p>
+<h1 mat-dialog-title>
+    {{editingCourse ?
+    'Editing course':
+    'Creating course'}}
+</h1>
+<div mat-dialog-content>
+    <form [formGroup]="courseForm" class="grid">
+
+        <div class="col-12">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Subject id</mat-label>
+                <input formControlName="subjectId" matInput type="text" name="subjectId" />
+                <mat-error *ngFor="let error of courseForm.get('subjectId')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 field">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Initial Date</mat-label>
+                <input formControlName="initialDate" matInput type="text" name="initialDate" />
+                <mat-error *ngFor="let error of courseForm.get('initialDate')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 field">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Finalization Date</mat-label>
+                <input formControlName="endDate" matInput type="text" name="endDate" />
+                <mat-error *ngFor="let error of courseForm.get('endDate')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
+
+    </form>
+</div>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="onSubmit()" type="submit" mat-button>Guardar</button>
+</div>

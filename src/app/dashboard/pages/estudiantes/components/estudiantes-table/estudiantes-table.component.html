@@ -24,12 +24,12 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let student">
-            <button (click)="editDoctor.emit(student)" mat-icon-button>
+            <button (click)="editStudent.emit(student)" mat-icon-button>
                 <mat-icon>
                     edit
                 </mat-icon>
             </button>
-            <button (click)="deleteDoctor.emit(student)" mat-icon-button color="warn">
+            <button (click)="deleteStudent.emit(student)" mat-icon-button color="warn">
                 <mat-icon>
                     delete
                 </mat-icon>

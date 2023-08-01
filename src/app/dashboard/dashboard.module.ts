@@ -8,12 +8,17 @@ import { UsersModule } from './pages/users/users.module';
 import { SharedModule } from '../shared/shared.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
+import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    NavMenuComponent,
+    ToolbarComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     UsersModule,
     InscripcionesModule,
     SharedModule,
+    RouterModule,
     MatSidenavModule,
     MatToolbarModule,
   ],

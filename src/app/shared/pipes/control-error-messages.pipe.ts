@@ -9,7 +9,8 @@ export class ControlErrorMessagesPipe implements PipeTransform {
     const errorMessages: Record<string, string> = {
       required: 'This field is required',
       email: 'Must be valid email address',
-      minlength: 'The length does not meet the required'
+      minlength: 'The min length does not meet the required',
+      maxlength: 'The max length does not meet the required'
     };
 
     return errorMessages[error.key] || 'Invalid field';
