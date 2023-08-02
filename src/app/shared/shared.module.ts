@@ -12,6 +12,7 @@ import { ConcatFullNamePipe } from './pipes/concat-full-name.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TitulosDirective } from './directives/titulos.directive';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTableModule,
     HttpClientModule,
     TitulosDirective,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

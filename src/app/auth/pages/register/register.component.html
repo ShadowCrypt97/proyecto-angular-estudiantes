@@ -1,1 +1,48 @@
-<p>register works!</p>
+<div class="grid justify-content-end p-3">
+    <div class="flex justify-content-center col-12">
+        <h1 class="p-3">Register</h1>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Name</mat-label>
+            <input type="password" matInput />
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Surname</mat-label>
+            <input type="password" matInput />
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput />
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Country</mat-label>
+            <input matInput />
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput />
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput />
+        </mat-form-field>
+    </div>
+    <div class="flex flex-column  justify-content-end col-3 gap-3">
+        <button routerLink="/dashboard" mat-flat-button color="primary" type="button">
+            Sign Up
+        </button>
+        <a class="text-center" mat-flat-button routerLink="/auth/login" target="_blank">Have you already an
+            account?</a>
+    </div>
+</div>
