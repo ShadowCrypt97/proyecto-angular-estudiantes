@@ -43,7 +43,7 @@ export class EstudiantesComponent {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete student ${student.name}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          this.studentService.deleteStudentById(student.id_student);
+          this.studentService.deleteStudentById(student.id);
           this.notificationService.sendSuccessNotification(`The student ${student.name} has been deleted.`, 'Deleted!');
         }
       })
@@ -58,7 +58,7 @@ export class EstudiantesComponent {
       .subscribe({
         next: (studentUpdated) => {
           if (studentUpdated) {
-            this.studentService.updateStudentById(studentToEdit.id_student, studentUpdated);
+            this.studentService.updateStudentById(studentToEdit.id, studentUpdated);
             this.notificationService.sendSuccessNotification('Student modified succesfully');
           }
         }

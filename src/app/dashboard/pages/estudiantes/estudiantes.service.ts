@@ -1,31 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, delay, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, delay, map, mergeMap, of, take } from 'rxjs';
 import { CreateStudent, Student, UpdateStudent } from './models/student.model';
-
-const STUDENT_DB: Observable<Student[]> = of(
-  [
-    {
-      id_student: 1,
-      name: "Camila",
-      surname: "Cuervo",
-      email: "camila.cuervo@gmail.com",
-      registrationDate: new Date()
-    },
-    {
-      id_student: 2,
-      name: "Carlos",
-      surname: "Caceres",
-      registrationDate: new Date()
-    },
-    {
-      id_student: 3,
-      name: "Alveiro",
-      surname: "Tarsisio",
-      email: "alveiro.tarsicio@gmail.com",
-      registrationDate: new Date()
-    }
-  ]
-).pipe(delay(1000));
+import { HttpClient } from '@angular/common/http';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,43 +12,75 @@ export class EstudiantesService {
   private _students$ = new BehaviorSubject<Student[]>([]);
   private students$ = this._students$.asObservable();
 
-  constructor() {
+  constructor(private httpClient: HttpClient, private notifier: NotificationService) {
 
   }
 
   loadStudents(): void {
-    STUDENT_DB.subscribe({
-      next: (studentsfromDB) => this._students$.next(studentsfromDB)
+    this.httpClient.get<Student[]>('http://localhost:3000/estudiantes').subscribe({
+      next: (response) => {
+        this._students$.next(response);
+      },
+      error: () => {
+        this.notifier.sendErrorNotification("Error charging students", "Connection refused")
+      }
     })
-
   }
 
   getStudents(): Observable<Student[]> {
     return this.students$
   }
   createStudents(student: CreateStudent): void {
-    this.students$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._students$.next([...actualArray, { ...student, id_student: actualArray.length + 1 }])
-      }
-    })
+    this.httpClient.post<Student>('http://localhost:3000/estudiantes', student)
+      .pipe(
+        mergeMap(
+          (studentCreated) => this.students$.pipe(
+            take(1),
+            map(
+              (arrayActual) => [...arrayActual, studentCreated]
+            )
+          )
+        )
+      )
+      .subscribe({
+        next: (updatedArray) => {
+          this._students$.next(updatedArray)
+        }
+      })
   }
 
   updateStudentById(id: number, studentUpdated: UpdateStudent): void {
-    this.students$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._students$.next(
-          actualArray.map((student) => (student.id_student === id) ? { ...student, ...studentUpdated } : student)
+    this.httpClient.put<Student>('http://localhost:3000/estudiantes/' + id, studentUpdated)
+      .pipe(
+        mergeMap(
+          (studentUpdated) => this.students$.pipe(
+            take(1),
+            map(
+              (arrayActual) => arrayActual.map((student) => student.id === id ? { ...student, ...studentUpdated } : student))
+          )
         )
-      }
-    })
+      )
+      .subscribe({
+        next: (updatedArray) => this._students$.next(updatedArray)
+      })
   }
 
   deleteStudentById(id: number): void {
-    this.students$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._students$.next(actualArray.filter((studentToDelete) => studentToDelete.id_student !== id))
-      }
-    })
+    this.httpClient.delete('http://localhost:3000/estudiantes/' + id)
+      .pipe(
+        mergeMap(() =>
+          this.students$.pipe(
+            take(1),
+            map((actualArray) => actualArray.filter((u) => u.id !== id))
+          )
+        )
+      )
+      .subscribe(
+        {
+          next: (updatedArray) => {
+            this._students$.next(updatedArray)
+          }
+        }
+      )
   }
 }
