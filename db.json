@@ -25,6 +25,15 @@
       "token": "fk442bfxvomcjwcyob6xhl",
       "role": "admin",
       "id": 1
+    },
+    {
+      "nombre": "daniel",
+      "apellido": "gomez",
+      "email": "daniel.gomez@gmail.com",
+      "password": "daniel1234",
+      "token": "jev7sve3jgbuacebk678u7",
+      "role": "admin",
+      "id": 2
     }
   ]
 }

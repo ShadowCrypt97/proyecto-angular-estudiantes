@@ -36,13 +36,35 @@ export class AuthService {
   }
 
   login(payload: LoginPayload): void {
-    if (payload.email === this.MOCK_USER.email && payload.password === this.MOCK_USER.password) {
-      this._authUser$.next(this.MOCK_USER);
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.notifierService.sendErrorNotification('Invalid email or password', 'Auth error')
-      this._authUser$.next(null);
-    }
+    // if (payload.email === this.MOCK_USER.email && payload.password === this.MOCK_USER.password) {
+    //   this._authUser$.next(this.MOCK_USER);
+    //   this.router.navigate(['/dashboard']);
+    // } else {
+    //   this.notifierService.sendErrorNotification('Invalid email or password', 'Auth error')
+    //   this._authUser$.next(null);
+    // }
+    this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
+      next: (response) => {
+        response.forEach(user => {
+          if (payload.email === user.email && payload.password === user.password) {
+            this._authUser$.next(user);
+            this.router.navigate(['/dashboard']);
+          }
+        });
+
+        this.authUser$.subscribe({
+          next: (user) => {
+            if (!user) {
+              this.notifierService.sendErrorNotification("Invalid email or password", "Auth error")
+            }
+          }
+        })
+
+      },
+      error: () => {
+        this.notifierService.sendErrorNotification("Error charging users", "Connection refused")
+      }
+    })
   }
 
   private random() {
