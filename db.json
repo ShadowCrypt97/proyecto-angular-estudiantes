@@ -16,5 +16,15 @@
       "id": 3
     }
   ],
-  "users": []
+  "users": [
+    {
+      "nombre": "Sergio",
+      "apellido": "Gomez",
+      "email": "sergio.gomez@gmail.com",
+      "password": "12345678",
+      "token": "fk442bfxvomcjwcyob6xhl",
+      "role": "admin",
+      "id": 1
+    }
+  ]
 }
