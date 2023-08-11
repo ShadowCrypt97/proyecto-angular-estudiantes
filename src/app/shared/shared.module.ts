@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { TitulosDirective } from './directives/titulos.directive';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 @NgModule({
@@ -37,7 +40,9 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     TitulosDirective,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class SharedModule { }

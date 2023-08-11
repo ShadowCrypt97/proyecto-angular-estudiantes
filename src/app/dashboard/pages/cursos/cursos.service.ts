@@ -50,6 +50,7 @@ export class CursosService {
     this.courses$.pipe(take(1)).subscribe({
       next: (actualArray) => {
         this._courses$.next([...actualArray, { ...course, id_course: actualArray.length + 1 }])
+        console.log(course)
       }
     })
   }
