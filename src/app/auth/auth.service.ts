@@ -16,39 +16,29 @@ export class AuthService {
   private _registerUser$ = new BehaviorSubject<User[]>([]);
   public registerUser$ = this._registerUser$.asObservable();
 
-  MOCK_USER: User = {
-    id: 1,
-    nombre: 'Pepito',
-    apellido: 'Perez',
-    email: 'pepito@gmail.com',
-    password: '12345678',
-    token: 'ASgasasdasgasASF849648asga',
-    role: 'Admin'
-  }
-
   constructor(private notifierService: NotificationService, private router: Router, private httpClient: HttpClient) { }
 
   isAuthenticated(): Observable<Boolean> {
-    return this.authUser$.pipe(
-      take(1),
-      map((user) => !!user)
+    return this.httpClient.get<User[]>('http://localhost:3000/users', {
+      params: {
+        token: localStorage.getItem('token') || ''
+      }
+    }).pipe(
+      map((userResult) => {
+        return !!userResult.length
+      })
     )
   }
 
   login(payload: LoginPayload): void {
-    // if (payload.email === this.MOCK_USER.email && payload.password === this.MOCK_USER.password) {
-    //   this._authUser$.next(this.MOCK_USER);
-    //   this.router.navigate(['/dashboard']);
-    // } else {
-    //   this.notifierService.sendErrorNotification('Invalid email or password', 'Auth error')
-    //   this._authUser$.next(null);
-    // }
+
     this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
       next: (response) => {
         response.forEach(user => {
           if (payload.email === user.email && payload.password === user.password) {
             this._authUser$.next(user);
             this.router.navigate(['/dashboard']);
+            localStorage.setItem('token', user.token)
           }
         });
 
@@ -62,9 +52,14 @@ export class AuthService {
 
       },
       error: () => {
-        this.notifierService.sendErrorNotification("Error charging users", "Connection refused")
+        this.notifierService.sendErrorNotification("Unexpected error", "Connection refused")
       }
     })
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
   }
 
   private random() {
