@@ -34,6 +34,15 @@
       "token": "jev7sve3jgbuacebk678u7",
       "role": "admin",
       "id": 2
+    },
+    {
+      "nombre": "paula camila",
+      "apellido": "cuervo roa",
+      "email": "paula.cuervor@ucc.edu.co",
+      "password": "Papiluis14.",
+      "token": "zitptgpmvrlmrdrleqrg7e",
+      "role": "admin",
+      "id": 3
     }
   ]
 }
