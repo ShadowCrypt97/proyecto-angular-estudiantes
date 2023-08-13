@@ -4,6 +4,7 @@ import { CreateUser, LoginPayload, RegisterPayload, User } from './models/authPa
 import { NotificationService } from '../core/services/notification.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
   constructor(private notifierService: NotificationService, private router: Router, private httpClient: HttpClient) { }
 
   isAuthenticated(): Observable<Boolean> {
-    return this.httpClient.get<User[]>('http://localhost:3000/users', {
+    return this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
       params: {
         token: localStorage.getItem('token') || ''
       }
@@ -32,7 +33,7 @@ export class AuthService {
 
   login(payload: LoginPayload): void {
 
-    this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
+    this.httpClient.get<User[]>(environment.baseApiUrl + '/users').subscribe({
       next: (response) => {
         response.forEach(user => {
           if (payload.email === user.email && payload.password === user.password) {
@@ -81,7 +82,7 @@ export class AuthService {
       role: "admin"
     }
 
-    this.httpClient.post<User>('http://localhost:3000/users', user)
+    this.httpClient.post<User>(environment.baseApiUrl + '/users', user)
       .pipe(
         mergeMap(
           (userCreated) => this.registerUser$.pipe(
