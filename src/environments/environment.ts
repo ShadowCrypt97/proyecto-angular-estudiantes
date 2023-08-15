@@ -1,4 +1,4 @@
 export const environment = {
     isProd: false,
-    baseApiUrl: 'http://localhost:3000'
+    baseApiUrl: 'https://backend-json-server.onrender.com'
 }
