@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../store/auth/auth.actions';
-import { selectAuthUser } from '../store/auth/auth.selectors';
+import { selectAuthUser, selectorAuthState } from '../store/auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +23,13 @@ export class AuthService {
   constructor(private notifierService: NotificationService, private router: Router, private httpClient: HttpClient, private store: Store) { }
 
   isAuthenticated(): Observable<Boolean> {
+    let token;
+    this.store.select(selectorAuthState).pipe(take(1)).subscribe({
+      next: (selector) => { token = selector.authUser?.token }
+    })
     return this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
       params: {
-        token: localStorage.getItem('token') || ''
+        token: token || ''
       }
     }).pipe(
       map((userResult) => {
@@ -43,7 +47,6 @@ export class AuthService {
             this._authUser$.next(user);
             this.store.dispatch(AuthActions.setAuthUser({ payload: user }))
             this.router.navigate(['/dashboard']);
-            localStorage.setItem('token', user.token)
           }
         });
 
@@ -63,7 +66,6 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.clear();
     this.store.dispatch(AuthActions.setAuthUser({ payload: null }))
     this.router.navigate(['/auth/login']);
   }
@@ -84,7 +86,7 @@ export class AuthService {
       email: payload.email,
       password: payload.password,
       token: this.token(),
-      role: "admin"
+      role: "ADMINISTRATOR"
     }
 
     this.httpClient.post<User>(environment.baseApiUrl + '/users', user)
