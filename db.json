@@ -44,5 +44,15 @@
       "role": "User",
       "id": 3
     }
+  ],
+  "roles": [
+    {
+      "role": "Admin",
+      "id": 1
+    },
+    {
+      "role": "User",
+      "id": 2
+    }
   ]
 }

@@ -5,11 +5,13 @@ import { Observable, EMPTY, of } from 'rxjs';
 import { UserActions } from './user.actions';
 import { UsersService } from '../users.service';
 import { User } from '../models/user.model';
+import { Role } from '../models/roles.model';
 
 
 @Injectable()
 export class UserEffects {
   public users$: Observable<User[]>;
+  public usersRoles$: Observable<Role[]>;
 
   loadUsers$ = createEffect(() => {
     return this.actions$.pipe(
@@ -24,9 +26,23 @@ export class UserEffects {
     );
   });
 
+  loadUserRoles$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(UserActions.loadUsers),
+      concatMap(() =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.usersRoles$.pipe(
+          map(data => UserActions.loadRolesSuccess({ data })),
+          catchError(error => of(UserActions.loadRolesFailure({ error }))))
+      )
+    );
+  });
+
 
   constructor(private actions$: Actions, private usersService: UsersService) {
     this.usersService.loadUsers();
     this.users$ = this.usersService.getUsers();
+    this.usersRoles$ = this.usersService.getRoles();
   }
 }

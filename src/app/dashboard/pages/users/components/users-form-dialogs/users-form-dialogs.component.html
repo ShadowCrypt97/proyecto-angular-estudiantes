@@ -1,1 +1,71 @@
-<p>users-form-dialogs works!</p>
+<h1 mat-dialog-title>
+    {{editingUser ?
+    'Editing to '+ editingUser.nombre + ' ' + editingUser.apellido:
+    'Creating User'}}
+</h1>
+<div mat-dialog-content>
+    <form class="grid justify-content-end p-3" [formGroup]="userForm">
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" type="text" matInput name="name" />
+                <mat-error *ngFor="let error of userForm.get('name')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Surname</mat-label>
+                <input formControlName="surname" name="surname" type="text" matInput />
+                <mat-error *ngFor="let error of userForm.get('surname')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" name="email" matInput type="email" />
+                <mat-error *ngFor="let error of userForm.get('email')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" name="password" type="password" matInput />
+                <mat-error *ngFor="let error of userForm.get('password')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input formControlName="confirmPassword" name="confirmPassword" type="password" matInput />
+                <mat-error *ngFor="let error of userForm.get('confirmPassword')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Select Role</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let role of (roleOptions$|async)" [value]="role.role">
+                        {{role.role}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let error of userForm.get('roles')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="onSubmit()" type="submit" mat-button>Guardar</button>
+</div>

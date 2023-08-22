@@ -6,3 +6,5 @@ export const selectUserState = createFeatureSelector<fromUser.State>(
 );
 
 export const selectUser = createSelector(selectUserState, (state) => state.data)
+
+export const selectRole = createSelector(selectUserState, (state) => state.roleOptions)

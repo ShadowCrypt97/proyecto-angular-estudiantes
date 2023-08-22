@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { CreateUser, User } from './models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { environment } from 'src/environments/environment';
+import { Role } from './models/roles.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
+
   updateUserById(id: number, userUpdated: any) {
     throw new Error('Method not implemented.');
   }
@@ -31,6 +33,10 @@ export class UsersService {
 
   getUsers(): Observable<User[]> {
     return this.users$
+  }
+
+  getRoles(): Observable<Role[]> {
+    return this.httpClient.get<Role[]>(environment.baseApiUrl + '/roles');
   }
 
   createUser(user: CreateUser) {
