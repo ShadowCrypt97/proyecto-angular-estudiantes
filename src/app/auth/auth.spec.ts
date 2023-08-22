@@ -4,7 +4,7 @@ import { RouterTestingModule } from "@angular/router/testing"
 import { Router } from "@angular/router"
 import { MockProvider } from "ng-mocks"
 import { AuthService } from "./auth.service"
-import { User } from "./models/authPayload.model"
+import { User } from "../dashboard/pages/users/models/user.model"
 
 describe('AuthService', () => {
     let service: AuthService;

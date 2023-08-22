@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, mergeMap, take } from 'rxjs';
-import { CreateUser, LoginPayload, RegisterPayload, User } from './models/authPayload.model';
+import { LoginPayload, RegisterPayload } from './models/authPayload.model';
 import { NotificationService } from '../core/services/notification.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../store/auth/auth.actions';
 import { selectAuthUser, selectorAuthState } from '../store/auth/auth.selectors';
+import { CreateUser, User } from '../dashboard/pages/users/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,7 @@ export class AuthService {
   constructor(private notifierService: NotificationService, private router: Router, private httpClient: HttpClient, private store: Store) { }
 
   isAuthenticated(): Observable<Boolean> {
-    let token;
-    this.store.select(selectorAuthState).pipe(take(1)).subscribe({
-      next: (selector) => { token = selector.authUser?.token }
-    })
+    const token = localStorage.getItem('token');
     return this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
       params: {
         token: token || ''
@@ -46,6 +44,7 @@ export class AuthService {
           if (payload.email === user.email && payload.password === user.password) {
             this._authUser$.next(user);
             this.store.dispatch(AuthActions.setAuthUser({ payload: user }))
+            localStorage.setItem('token', user.token)
             this.router.navigate(['/dashboard']);
           }
         });
@@ -66,6 +65,7 @@ export class AuthService {
   }
 
   logout(): void {
+    localStorage.clear()
     this.store.dispatch(AuthActions.setAuthUser({ payload: null }))
     this.router.navigate(['/auth/login']);
   }

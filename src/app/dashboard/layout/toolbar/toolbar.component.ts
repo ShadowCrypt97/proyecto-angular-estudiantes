@@ -3,8 +3,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { User } from 'src/app/auth/models/authPayload.model';
 import { selectAuthUser } from 'src/app/store/auth/auth.selectors';
+import { User } from '../../pages/users/models/user.model';
 
 @Component({
   selector: 'app-toolbar',

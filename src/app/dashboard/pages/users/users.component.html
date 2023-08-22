@@ -1,1 +1,9 @@
-<p>users works!</p>
+<div class="mb-5">
+    <button mat-flat-button (click)="onCreateUser()" color="primary" type="button">
+        <mat-icon>add</mat-icon>
+        Create Users
+    </button>
+</div>
+
+<app-users-table [dataSource]="(users$|async)||[]" (deleteUser)="onDeleteUser($event)"
+    (editUser)="onEditUser($event)"></app-users-table>

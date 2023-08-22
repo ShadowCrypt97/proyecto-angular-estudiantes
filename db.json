@@ -23,7 +23,7 @@
       "email": "sergio.gomez@gmail.com",
       "password": "12345678",
       "token": "fk442bfxvomcjwcyob6xhl",
-      "role": "admin",
+      "role": "Admin",
       "id": 1
     },
     {
@@ -32,7 +32,7 @@
       "email": "daniel.gomez@gmail.com",
       "password": "daniel1234",
       "token": "jev7sve3jgbuacebk678u7",
-      "role": "admin",
+      "role": "User",
       "id": 2
     },
     {
@@ -41,7 +41,7 @@
       "email": "paula.cuervor@ucc.edu.co",
       "password": "Papiluis14.",
       "token": "zitptgpmvrlmrdrleqrg7e",
-      "role": "admin",
+      "role": "User",
       "id": 3
     }
   ]

@@ -25,6 +25,10 @@ import { CursosComponent } from './pages/cursos/cursos.component';
         loadChildren: () => import("./pages/cursos/cursos.module").then((m) => m.CursosModule)
       },
       {
+        path: 'users',
+        loadChildren: () => import("./pages/users/users.module").then((m) => m.UsersModule)
+      },
+      {
         path: '**',
         redirectTo: 'home'
       }
