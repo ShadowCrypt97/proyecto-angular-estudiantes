@@ -7,6 +7,7 @@ import { UserActions } from '../../store/user.actions';
 import { Observable } from 'rxjs';
 import { Role } from '../../models/roles.model';
 import { selectRole } from '../../store/user.selectors';
+import { confirmPwdValidator } from 'src/app/shared/utils/formValidators';
 
 @Component({
   selector: 'app-users-form-dialogs',
@@ -33,6 +34,7 @@ export class UsersFormDialogsComponent implements OnInit {
         role: [null, [Validators.required]]
       }
     )
+    this.userForm.get('confirmPassword')?.setValidators(confirmPwdValidator(this.userForm.get('password')));
 
     if (this.data) {
       this.editingUser = this.data;
@@ -53,6 +55,7 @@ export class UsersFormDialogsComponent implements OnInit {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
     } else {
+      console.log(this.userForm.getRawValue())
       this.dialogRef.close(this.userForm.value);
     }
   }

@@ -1,10 +1,10 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function confirmPwdValidator(password: string): ValidatorFn {
+export function confirmPwdValidator(controlPassword: AbstractControl<any, any> | null): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         if (control instanceof FormControl) {
             if (
-                control.value !== password
+                control.value !== controlPassword?.value
             ) {
                 return {
                     confirmPwdDiff: true,

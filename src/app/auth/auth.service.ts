@@ -86,7 +86,7 @@ export class AuthService {
       email: payload.email,
       password: payload.password,
       token: this.token(),
-      role: "admin"
+      role: 'Admin'
     }
 
     this.httpClient.post<User>(environment.baseApiUrl + '/users', user)
@@ -104,6 +104,7 @@ export class AuthService {
         next: (updatedArray) => {
           this._registerUser$.next(updatedArray);
           this._authUser$.next(updatedArray[0]);
+          this.notifierService.sendSuccessNotification('User registered succesfully')
           this.router.navigate(['dashboard']);
         }
       })

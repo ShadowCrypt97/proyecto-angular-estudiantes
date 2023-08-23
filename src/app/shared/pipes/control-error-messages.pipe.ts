@@ -10,7 +10,8 @@ export class ControlErrorMessagesPipe implements PipeTransform {
       required: 'This field is required',
       email: 'Must be valid email address',
       minlength: 'The min length does not meet the required',
-      maxlength: 'The max length does not meet the required'
+      maxlength: 'The max length does not meet the required',
+      confirmPwdDiff: 'The password and confirm password values does not match'
     };
 
     return errorMessages[error.key] || 'Invalid field';

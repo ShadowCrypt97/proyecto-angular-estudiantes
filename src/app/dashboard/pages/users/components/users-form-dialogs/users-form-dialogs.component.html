@@ -34,6 +34,19 @@
         </div>
         <div class="col-6">
             <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Select Role</mat-label>
+                <mat-select formControlName="role" name="role">
+                    <mat-option *ngFor="let role of (roleOptions$|async)" [value]="role.role">
+                        {{role.role}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let error of userForm.get('role')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" name="password" type="password" matInput />
                 <mat-error *ngFor="let error of userForm.get('password')?.errors | keyvalue">
@@ -46,19 +59,6 @@
                 <mat-label>Confirm Password</mat-label>
                 <input formControlName="confirmPassword" name="confirmPassword" type="password" matInput />
                 <mat-error *ngFor="let error of userForm.get('confirmPassword')?.errors | keyvalue">
-                    {{ error | controlErrorMessages }}
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="col-6">
-            <mat-form-field class="w-full" appearance="outline">
-                <mat-label>Select Role</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let role of (roleOptions$|async)" [value]="role.role">
-                        {{role.role}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngFor="let error of userForm.get('roles')?.errors | keyvalue">
                     {{ error | controlErrorMessages }}
                 </mat-error>
             </mat-form-field>

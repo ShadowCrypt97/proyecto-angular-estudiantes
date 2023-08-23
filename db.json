@@ -43,6 +43,15 @@
       "token": "zitptgpmvrlmrdrleqrg7e",
       "role": "User",
       "id": 3
+    },
+    {
+      "nombre": "Test",
+      "apellido": null,
+      "email": "test@mail.com",
+      "password": "test1234",
+      "token": "mnl5z88edvpsidqmjs724",
+      "role": "Admin",
+      "id": 4
     }
   ],
   "roles": [

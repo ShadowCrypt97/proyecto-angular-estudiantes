@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { RegisterPayload } from '../../models/authPayload.model';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { confirmPwdValidator } from 'src/app/shared/utils/formValidators';
 
 @Component({
   selector: 'app-register',
@@ -19,16 +20,14 @@ export class RegisterComponent {
       password: [null, [Validators.required, Validators.minLength(8)]],
       confirmPassword: [null, [Validators.required, Validators.minLength(8)]]
     })
+    this.registerForm.get('confirmPassword')?.setValidators(confirmPwdValidator(this.registerForm.get('password')));
+
   }
 
   register(): void {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
-    }
-    else if ((this.registerForm.getRawValue() as RegisterPayload).password !== (this.registerForm.getRawValue() as RegisterPayload).confirmPassword) {
-      this.notifier.sendErrorNotification('Confirm password is not the same to password', 'confirm password error')
-    }
-    else {
+    } else {
       this.authService.register(this.registerForm.getRawValue())
     }
   }
