@@ -1,12 +1,12 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { UserActions } from './user.actions';
-import { User } from '../models/user.model';
+import { User, UserWithRole } from '../models/user.model';
 import { Role } from '../models/roles.model';
 
 export const userFeatureKey = 'user';
 
 export interface State {
-  data: User[],
+  data: UserWithRole[],
   roleOptions: Role[],
   loading: boolean,
   error: unknown
@@ -60,7 +60,7 @@ export const reducer = createReducer(
       error: action.error,
       loading: false
     }
-  })
+  }),
 );
 
 export const userFeature = createFeature({

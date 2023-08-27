@@ -86,7 +86,7 @@ export class AuthService {
       email: payload.email,
       password: payload.password,
       token: this.token(),
-      role: 'Admin'
+      roleId: 1
     }
 
     this.httpClient.post<User>(environment.baseApiUrl + '/users', user)

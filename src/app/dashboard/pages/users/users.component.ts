@@ -36,7 +36,6 @@ export class UsersComponent implements OnInit {
     this.store.dispatch(UserActions.loadUsers())
   }
   onCreateUser(): void {
-
     this.matDialog
       .open(UsersFormDialogsComponent)
       .afterClosed()
@@ -49,8 +48,9 @@ export class UsersComponent implements OnInit {
               email: v.email,
               password: v.password,
               token: this.token,
-              role: v.role
+              roleId: v.role
             })
+            this.users$ = this.store.select(selectUser);
             this.notificationService.sendSuccessNotification('User created succesfully')
           }
         }

@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap } from 'rxjs/operators';
+import { catchError, map, concatMap, take, switchMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import { UserActions } from './user.actions';
 import { UsersService } from '../users.service';
-import { User } from '../models/user.model';
+import { CreateUser, User, UserWithRole } from '../models/user.model';
 import { Role } from '../models/roles.model';
+import { Store } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class UserEffects {
-  public users$: Observable<User[]>;
   public usersRoles$: Observable<Role[]>;
 
   loadUsers$ = createEffect(() => {
     return this.actions$.pipe(
 
       ofType(UserActions.loadUsers),
-      concatMap(() =>
+      switchMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        this.users$.pipe(
+        this.getUsersFromDB().pipe(
           map(data => UserActions.loadUsersSuccess({ data })),
           catchError(error => of(UserActions.loadUsersFailure({ error }))))
       )
@@ -29,7 +31,7 @@ export class UserEffects {
   loadUserRoles$ = createEffect(() => {
     return this.actions$.pipe(
 
-      ofType(UserActions.loadUsers),
+      ofType(UserActions.loadRoles),
       concatMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.usersRoles$.pipe(
@@ -38,11 +40,34 @@ export class UserEffects {
       )
     );
   });
+  createUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.createUser),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.createUser(action.payload).pipe(
+          map(data => UserActions.createUserSuccess({ data })),
+          catchError(error => of(UserActions.createUserFailure({ error }))))
+      )
+    );
+  });
+
+  createUserSucess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.createUserSuccess),
+      map(() => this.store.dispatch(UserActions.loadUsers()))
+    )
+  }, { dispatch: false })
 
 
-  constructor(private actions$: Actions, private usersService: UsersService) {
-    this.usersService.loadUsers();
-    this.users$ = this.usersService.getUsers();
+  constructor(private actions$: Actions, private httpClient: HttpClient, private usersService: UsersService, private store: Store) {
     this.usersRoles$ = this.usersService.getRoles();
+  }
+  private getUsersFromDB(): Observable<UserWithRole[]> {
+    return this.httpClient.get<UserWithRole[]>(environment.baseApiUrl + '/users?_expand=role')
+  }
+
+  createUser(payload: CreateUser): Observable<UserWithRole> {
+    return this.usersService.createUser(payload);
   }
 }

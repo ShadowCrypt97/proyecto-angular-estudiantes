@@ -23,7 +23,7 @@
       "email": "sergio.gomez@gmail.com",
       "password": "12345678",
       "token": "fk442bfxvomcjwcyob6xhl",
-      "role": "Admin",
+      "roleId": 1,
       "id": 1
     },
     {
@@ -32,26 +32,71 @@
       "email": "daniel.gomez@gmail.com",
       "password": "daniel1234",
       "token": "jev7sve3jgbuacebk678u7",
-      "role": "User",
+      "roleId": 2,
       "id": 2
     },
     {
       "nombre": "paula camila",
       "apellido": "cuervo roa",
       "email": "paula.cuervor@ucc.edu.co",
-      "password": "Papiluis14.",
+      "password": "12345678",
       "token": "zitptgpmvrlmrdrleqrg7e",
-      "role": "User",
+      "roleId": 2,
       "id": 3
     },
     {
-      "nombre": "Test",
+      "nombre": "Francisco",
       "apellido": null,
-      "email": "test@mail.com",
-      "password": "test1234",
-      "token": "mnl5z88edvpsidqmjs724",
-      "role": "Admin",
+      "email": "fran23@gmail.com",
+      "password": "12345678",
+      "token": "ecgmi5cx8d7ts7en9jope",
+      "roleId": 1,
       "id": 4
+    },
+    {
+      "nombre": "pedro",
+      "apellido": null,
+      "email": "pedro@gmail",
+      "password": "12345678",
+      "token": "60detxde0nub158ea0x1fo",
+      "roleId": 1,
+      "id": 5
+    },
+    {
+      "nombre": "Lucas",
+      "apellido": null,
+      "email": "lucas@mail.com",
+      "password": "12345678",
+      "token": "kin1j68xdxg274w50hvda6",
+      "roleId": 1,
+      "id": 6
+    },
+    {
+      "nombre": "MAria",
+      "apellido": "juana",
+      "email": "maria.juana@mail.com",
+      "password": "12345678",
+      "token": "d0fkyc1xo7het0obr9ook",
+      "roleId": 2,
+      "id": 7
+    },
+    {
+      "nombre": "Lucas",
+      "apellido": null,
+      "email": "lucas@mail.com",
+      "password": "12345678",
+      "token": "u1in9dxstqe131vibrv97m",
+      "roleId": 2,
+      "id": 8
+    },
+    {
+      "nombre": "juanchito",
+      "apellido": null,
+      "email": "juanchito@mail.com",
+      "password": "12345678",
+      "token": "g1vjf89wjsojtbuhks76yq",
+      "roleId": 1,
+      "id": 9
     }
   ],
   "roles": [

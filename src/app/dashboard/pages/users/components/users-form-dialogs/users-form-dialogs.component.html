@@ -36,7 +36,7 @@
             <mat-form-field class="w-full" appearance="outline">
                 <mat-label>Select Role</mat-label>
                 <mat-select formControlName="role" name="role">
-                    <mat-option *ngFor="let role of (roleOptions$|async)" [value]="role.role">
+                    <mat-option *ngFor="let role of (roleOptions$|async)" [value]="role.id">
                         {{role.role}}
                     </mat-option>
                 </mat-select>

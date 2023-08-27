@@ -18,6 +18,15 @@ export class UsersFormDialogsComponent implements OnInit {
   editingUser?: User;
   userForm: FormGroup;
   roleOptions$: Observable<Role[]>
+
+  private random() {
+    return Math.random().toString(36).substr(2);
+  };
+
+  private token() {
+    return this.random() + this.random();
+  };
+
   constructor(
     private dialogRef: MatDialogRef<UsersFormDialogsComponent>,
     private formBuilder: FormBuilder,
@@ -42,7 +51,7 @@ export class UsersFormDialogsComponent implements OnInit {
       this.userForm.get('surname')?.setValue(this.data.apellido);
       this.userForm.get('email')?.setValue(this.data.email || 'null');
       this.userForm.get('password')?.setValue(this.data.password || 'null');
-      this.userForm.get('role')?.setValue(this.data.role || 'null');
+      this.userForm.get('role')?.setValue(this.data.roleId || 'null');
 
     }
 
@@ -55,7 +64,16 @@ export class UsersFormDialogsComponent implements OnInit {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
     } else {
-      console.log(this.userForm.getRawValue())
+      this.store.dispatch(UserActions.createUser({
+        payload: {
+          nombre: this.userForm.get('name')?.value,
+          apellido: this.userForm.get('surname')?.value,
+          email: this.userForm.get('email')?.value,
+          password: this.userForm.get('password')?.value,
+          token: this.token(),
+          roleId: this.userForm.get('role')?.value
+        }
+      }));
       this.dialogRef.close(this.userForm.value);
     }
   }

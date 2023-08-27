@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
-import { CreateUser, User } from './models/user.model';
+import { CreateUser, User, UserWithRole } from './models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { environment } from 'src/environments/environment';
@@ -15,13 +15,13 @@ export class UsersService {
     throw new Error('Method not implemented.');
   }
 
-  private _users$ = new BehaviorSubject<User[]>([]);
+  private _users$ = new BehaviorSubject<UserWithRole[]>([]);
   private users$ = this._users$.asObservable();
 
   constructor(private httpClient: HttpClient, private notifier: NotificationService) { }
 
   loadUsers(): void {
-    this.httpClient.get<User[]>(environment.baseApiUrl + '/users').subscribe({
+    this.httpClient.get<UserWithRole[]>(environment.baseApiUrl + '/users?_expand=role').subscribe({
       next: (response) => {
         this._users$.next(response);
       },
@@ -31,7 +31,7 @@ export class UsersService {
     })
   }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<UserWithRole[]> {
     return this.users$
   }
 
@@ -39,8 +39,8 @@ export class UsersService {
     return this.httpClient.get<Role[]>(environment.baseApiUrl + '/roles');
   }
 
-  createUser(user: CreateUser) {
-
+  createUser(user: CreateUser): Observable<UserWithRole> {
+    return this.httpClient.post<UserWithRole>(environment.baseApiUrl + '/users', user);
   }
 
   deleteUserById(id: number) {
