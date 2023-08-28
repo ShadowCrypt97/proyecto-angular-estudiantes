@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component';
 import { CursosComponent } from './pages/cursos/cursos.component';
+import { roleGuard } from '../core/guards/role.guard';
 
 
 
@@ -26,6 +27,7 @@ import { CursosComponent } from './pages/cursos/cursos.component';
       },
       {
         path: 'users',
+        canActivate: [roleGuard],
         loadChildren: () => import("./pages/users/users.module").then((m) => m.UsersModule)
       },
       {

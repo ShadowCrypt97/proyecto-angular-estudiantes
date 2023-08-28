@@ -31,7 +31,7 @@ describe('AuthService', () => {
             email: "sergio@gmail.com",
             password: "sergio123*",
             token: "aE2PrFqAXLpZY3W0sWo",
-            role: "Admin"
+            roleId: 1
         };
 
         const mockResponse: User[] = [mockUser];

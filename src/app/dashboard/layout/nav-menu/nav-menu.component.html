@@ -10,7 +10,7 @@
     <mat-icon>groups</mat-icon>
     <span>Courses</span>
 </button>
-<button routerLink="users" mat-button class="menu-button w-full">
+<button *ngIf="role$|async" routerLink="users" mat-button class="menu-button w-full">
     <mat-icon>person</mat-icon>
     <span>Users</span>
 </button>
