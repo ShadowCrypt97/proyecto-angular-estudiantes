@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './models/user.model';
+import { UpdateUser, User } from './models/user.model';
 import { UsersFormDialogsComponent } from './components/users-form-dialogs/users-form-dialogs.component';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -42,15 +42,17 @@ export class UsersComponent implements OnInit {
       .subscribe({
         next: (v) => {
           if (v) {
-            this.usersService.createUser({
+            const user = {
               nombre: v.name,
               apellido: v.surname,
               email: v.email,
               password: v.password,
               token: this.token,
               roleId: v.role
-            })
-            this.users$ = this.store.select(selectUser);
+            }
+            this.store.dispatch(UserActions.createUser({
+              payload: user
+            }));
             this.notificationService.sendSuccessNotification('User created succesfully')
           }
         }
@@ -76,7 +78,17 @@ export class UsersComponent implements OnInit {
       .subscribe({
         next: (userUpdated) => {
           if (userUpdated) {
-            this.usersService.updateUserById(userToEdit.id, userUpdated);
+            this.store.dispatch(UserActions.updateUser({
+              id: userToEdit.id,
+              payload: {
+                nombre: userUpdated.name,
+                apellido: userUpdated.surname,
+                password: userUpdated.password,
+                email: userUpdated.email,
+                roleId: userUpdated.role,
+                token: userToEdit.token
+              }
+            }))
             this.notificationService.sendSuccessNotification('User modified succesfully');
           }
         }

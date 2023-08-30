@@ -4,7 +4,7 @@ import { catchError, map, concatMap, take, switchMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import { UserActions } from './user.actions';
 import { UsersService } from '../users.service';
-import { CreateUser, User, UserWithRole } from '../models/user.model';
+import { CreateUser, UpdateUser, UserWithRole } from '../models/user.model';
 import { Role } from '../models/roles.model';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
@@ -59,6 +59,27 @@ export class UserEffects {
     )
   }, { dispatch: false })
 
+  updateUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.updateUser),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.updateUser(action.id, action.payload).pipe(
+          map(data => UserActions.updateUserSuccess({
+            id: data.id,
+            data: data
+          })),
+          catchError(error => of(UserActions.createUserFailure({ error }))))
+      )
+    );
+  });
+
+  updateUserSucess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.updateUserSuccess),
+      map(() => this.store.dispatch(UserActions.loadUsers()))
+    )
+  }, { dispatch: false })
 
   constructor(private actions$: Actions, private httpClient: HttpClient, private usersService: UsersService, private store: Store) {
     this.usersRoles$ = this.usersService.getRoles();
@@ -69,5 +90,9 @@ export class UserEffects {
 
   createUser(payload: CreateUser): Observable<UserWithRole> {
     return this.usersService.createUser(payload);
+  }
+
+  updateUser(id: number, payload: UpdateUser): Observable<UserWithRole> {
+    return this.usersService.updateUserById(id, payload);
   }
 }

@@ -19,6 +19,15 @@ export interface CreateUser {
     roleId: number
 }
 
+export interface UpdateUser {
+    nombre?: string | null
+    apellido?: string | null
+    email?: string | null
+    password?: string | null
+    token?: string | null
+    roleId?: number
+}
+
 export interface UserWithRole extends User {
     nombre: string
     apellido: string

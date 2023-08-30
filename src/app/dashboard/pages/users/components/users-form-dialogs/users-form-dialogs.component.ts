@@ -64,17 +64,8 @@ export class UsersFormDialogsComponent implements OnInit {
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
     } else {
-      this.store.dispatch(UserActions.createUser({
-        payload: {
-          nombre: this.userForm.get('name')?.value,
-          apellido: this.userForm.get('surname')?.value,
-          email: this.userForm.get('email')?.value,
-          password: this.userForm.get('password')?.value,
-          token: this.token(),
-          roleId: this.userForm.get('role')?.value
-        }
-      }));
-      this.dialogRef.close(this.userForm.value);
+      const user: User = this.userForm.value
+      this.dialogRef.close(user);
     }
   }
 }

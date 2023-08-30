@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { CreateUser, User, UserWithRole } from '../models/user.model';
+import { CreateUser, UpdateUser, User, UserWithRole } from '../models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Role } from '../models/roles.model';
 
@@ -17,5 +17,9 @@ export const UserActions = createActionGroup({
     'Create User': props<{ payload: CreateUser }>(),
     'Create User Success': props<{ data: User }>(),
     'Create User Failure': props<{ error: HttpErrorResponse }>(),
+
+    'Update User': props<{ id: number, payload: UpdateUser }>(),
+    'Update User Success': props<{ id: number, data: User }>(),
+    'Update User Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

@@ -82,21 +82,12 @@
     },
     {
       "nombre": "Lucas",
-      "apellido": null,
-      "email": "lucas@mail.com",
+      "apellido": "Perea Gonzalez",
       "password": "12345678",
-      "token": "u1in9dxstqe131vibrv97m",
-      "roleId": 2,
-      "id": 8
-    },
-    {
-      "nombre": "juanchito",
-      "apellido": null,
-      "email": "juanchito@mail.com",
-      "password": "12345678",
-      "token": "g1vjf89wjsojtbuhks76yq",
+      "email": "lucas.perea-g@mail.com",
       "roleId": 1,
-      "id": 9
+      "token": "u1in9dxstqe131vibrv97m",
+      "id": 8
     }
   ],
   "roles": [
