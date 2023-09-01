@@ -44,6 +44,6 @@ export class UsersService {
   }
 
   deleteUserById(id: number) {
-
+    return this.httpClient.delete<User>(environment.baseApiUrl + '/users/' + id);
   }
 }

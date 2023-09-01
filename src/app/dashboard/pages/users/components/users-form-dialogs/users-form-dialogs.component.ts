@@ -36,7 +36,7 @@ export class UsersFormDialogsComponent implements OnInit {
     this.userForm = this.formBuilder.group(
       {
         name: [null, [Validators.required, Validators.minLength(2)]],
-        surname: [null, [Validators.minLength(2)]],
+        surname: [null, [Validators.required, Validators.minLength(2)]],
         email: [null, [Validators.required, Validators.email]],
         password: [null, [Validators.required, Validators.minLength(8)]],
         confirmPassword: [null, [Validators.required, Validators.minLength(8)]],

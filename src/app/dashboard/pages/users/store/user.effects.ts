@@ -4,7 +4,7 @@ import { catchError, map, concatMap, take, switchMap } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 import { UserActions } from './user.actions';
 import { UsersService } from '../users.service';
-import { CreateUser, UpdateUser, UserWithRole } from '../models/user.model';
+import { CreateUser, UpdateUser, User, UserWithRole } from '../models/user.model';
 import { Role } from '../models/roles.model';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserEffects {
+
   public usersRoles$: Observable<Role[]>;
 
   loadUsers$ = createEffect(() => {
@@ -81,6 +82,25 @@ export class UserEffects {
     )
   }, { dispatch: false })
 
+  deleteUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.deleteUser),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.deleteUser(action.id).pipe(
+          map(() => UserActions.deleteUserSuccess()),
+          catchError(error => of(UserActions.createUserFailure({ error }))))
+      )
+    )
+  })
+
+  deleteUserSucess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.deleteUserSuccess),
+      map(() => this.store.dispatch(UserActions.loadUsers()))
+    )
+  }, { dispatch: false })
+
   constructor(private actions$: Actions, private httpClient: HttpClient, private usersService: UsersService, private store: Store) {
     this.usersRoles$ = this.usersService.getRoles();
   }
@@ -94,5 +114,9 @@ export class UserEffects {
 
   updateUser(id: number, payload: UpdateUser): Observable<UserWithRole> {
     return this.usersService.updateUserById(id, payload);
+  }
+
+  deleteUser(id: number): Observable<User> {
+    return this.usersService.deleteUserById(id);
   }
 }

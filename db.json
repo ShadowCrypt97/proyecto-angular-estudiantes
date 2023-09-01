@@ -70,24 +70,6 @@
       "token": "kin1j68xdxg274w50hvda6",
       "roleId": 1,
       "id": 6
-    },
-    {
-      "nombre": "MAria",
-      "apellido": "juana",
-      "email": "maria.juana@mail.com",
-      "password": "12345678",
-      "token": "d0fkyc1xo7het0obr9ook",
-      "roleId": 2,
-      "id": 7
-    },
-    {
-      "nombre": "Lucas",
-      "apellido": "Perea Gonzalez",
-      "password": "12345678",
-      "email": "lucas.perea-g@mail.com",
-      "roleId": 1,
-      "token": "u1in9dxstqe131vibrv97m",
-      "id": 8
     }
   ],
   "roles": [

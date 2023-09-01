@@ -21,5 +21,9 @@ export const UserActions = createActionGroup({
     'Update User': props<{ id: number, payload: UpdateUser }>(),
     'Update User Success': props<{ id: number, data: User }>(),
     'Update User Failure': props<{ error: HttpErrorResponse }>(),
+
+    'Delete User': props<{ id: number }>(),
+    'Delete User Success': emptyProps(),
+    'Delete User Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

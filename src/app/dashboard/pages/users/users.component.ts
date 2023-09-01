@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete user ${user.nombre}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          this.usersService.deleteUserById(user.id);
+          this.store.dispatch(UserActions.deleteUser({ id: user.id }))
           this.notificationService.sendSuccessNotification(`The user ${user.nombre} has been deleted.`, 'Deleted!');
         }
       })
