@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { MateriasComponent } from './pages/materias/materias.component';
 
 
 
@@ -16,6 +17,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     DashboardComponent,
     NavMenuComponent,
     ToolbarComponent,
+    MateriasComponent,
   ],
   imports: [
     CommonModule,

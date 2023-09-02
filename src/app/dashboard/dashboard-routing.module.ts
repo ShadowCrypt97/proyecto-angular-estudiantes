@@ -31,6 +31,15 @@ import { roleGuard } from '../core/guards/role.guard';
         loadChildren: () => import("./pages/users/users.module").then((m) => m.UsersModule)
       },
       {
+        path: 'interactions',
+        loadChildren: () => import("./pages/inscripciones/inscripciones.module").then((m) => m.InscripcionesModule)
+      },
+      {
+        path: 'subjects',
+        canActivate: [roleGuard],
+        loadChildren: () => import("./pages/materias/materias.module").then((m) => m.MateriasModule)
+      },
+      {
         path: '**',
         redirectTo: 'home'
       }

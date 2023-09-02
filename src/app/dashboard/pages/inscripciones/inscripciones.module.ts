@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InscripcionesComponent } from './inscripciones.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InscripcionesRoutingModule } from './inscripciones-routing.module';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    InscripcionesRoutingModule
   ],
   exports: [
     InscripcionesComponent
