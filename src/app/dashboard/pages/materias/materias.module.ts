@@ -5,10 +5,10 @@ import { MateriasFormDialogsComponent } from './components/materias-form-dialogs
 import { MateriasTableComponent } from './components/materias-table/materias-table.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as fromMaterias from './store/materias.reducer';
 import { MateriasEffects } from './store/materias.effects';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MateriasComponent } from './materias.component';
+import { materiasFeature } from './store/materias.reducer';
 
 
 
@@ -23,7 +23,7 @@ import { MateriasComponent } from './materias.component';
     SharedModule,
     MateriasRoutingModule,
     EffectsModule.forFeature([MateriasEffects]),
-    StoreModule.forFeature(fromMaterias.materiasFeature)
+    StoreModule.forFeature(materiasFeature)
   ],
   exports: [
     MateriasComponent
