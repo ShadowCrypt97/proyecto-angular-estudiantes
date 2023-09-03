@@ -21,7 +21,6 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private matDialog: MatDialog,
-    private usersService: UsersService,
     private notificationService: NotificationService,
     private store: Store
   ) {

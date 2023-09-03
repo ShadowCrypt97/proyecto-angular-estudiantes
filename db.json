@@ -1,5 +1,37 @@
 {
   "cursos": [],
+  "subjects": [
+    {
+      "id": 1,
+      "subject_name": "Angular",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
+    },
+    {
+      "id": 2,
+      "subject_name": "React",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
+    },
+    {
+      "id": 3,
+      "subject_name": "Vue",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
+    },
+    {
+      "id": 4,
+      "subject_name": "Java",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
+    },
+    {
+      "id": 5,
+      "subject_name": "Python",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
+    },
+    {
+      "subject_name": "Express.js",
+      "description": "Cualquier descripción",
+      "id": 6
+    }
+  ],
   "estudiantes": [
     {
       "name": "Daniel",
@@ -64,11 +96,11 @@
     },
     {
       "nombre": "Lucas",
-      "apellido": null,
-      "email": "lucas@mail.com",
+      "apellido": "Villa",
       "password": "12345678",
-      "token": "kin1j68xdxg274w50hvda6",
+      "email": "lucas@mail.com",
       "roleId": 1,
+      "token": "kin1j68xdxg274w50hvda6",
       "id": 6
     }
   ],

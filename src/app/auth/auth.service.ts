@@ -3,11 +3,11 @@ import { BehaviorSubject, Observable, map, mergeMap, take } from 'rxjs';
 import { LoginPayload, RegisterPayload } from './models/authPayload.model';
 import { NotificationService } from '../core/services/notification.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../store/auth/auth.actions';
-import { selectAuthUser, selectorAuthState } from '../store/auth/auth.selectors';
+import { selectAuthUser } from '../store/auth/auth.selectors';
 import { CreateUser, User } from '../dashboard/pages/users/models/user.model';
 
 @Injectable({
@@ -16,10 +16,11 @@ import { CreateUser, User } from '../dashboard/pages/users/models/user.model';
 export class AuthService {
 
   private _authUser$ = new BehaviorSubject<User | null>(null);
-  public authUser$ = this._authUser$.asObservable();
+  public authUser$ = this.store.select(selectAuthUser);
 
   private _registerUser$ = new BehaviorSubject<User[]>([]);
   public registerUser$ = this._registerUser$.asObservable();
+
 
   constructor(private notifierService: NotificationService, private router: Router, private httpClient: HttpClient, private store: Store) { }
 
@@ -37,29 +38,36 @@ export class AuthService {
   }
 
   login(payload: LoginPayload): void {
-
-    this.httpClient.get<User[]>(environment.baseApiUrl + '/users').subscribe({
+    this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
+      params: {
+        email: payload.email || '',
+        password: payload.password || ''
+      }
+    }).subscribe({
       next: (response) => {
-        response.forEach(user => {
-          if (payload.email === user.email && payload.password === user.password) {
-            this._authUser$.next(user);
-            this.store.dispatch(AuthActions.setAuthUser({ payload: user }))
-            localStorage.setItem('token', user.token)
-            this.router.navigate(['/dashboard']);
-          }
-        });
-
-        this.store.select(selectAuthUser).pipe(take(1)).subscribe({
-          next: (user) => {
-            if (!user) {
-              this.notifierService.sendErrorNotification("Invalid email or password", "Auth error")
-            }
-          }
-        })
+        if (response.length) {
+          const authUser = response[0];
+          this.store.dispatch(AuthActions.setAuthUser({ payload: authUser }))
+          this.router.navigate(['/dashboard']);
+          localStorage.setItem('token', authUser.token)
+        } else {
+          this.notifierService.sendErrorNotification("Invalid email or password", "Auth error")
+          this.store.dispatch(AuthActions.setAuthUser({ payload: null }));
+        }
 
       },
-      error: () => {
-        this.notifierService.sendErrorNotification("Unexpected error", "Connection refused")
+      error: (err) => {
+
+        if (err instanceof HttpErrorResponse) {
+          let message = 'Ocurrio un error inespeado';
+          if (err.status === 500) {
+            message
+          }
+          if (err.status === 401) {
+            message = 'Email o contrasena invalida';
+          }
+          this.notifierService.sendErrorNotification("Unexpected error", "Connection refused")
+        }
       }
     })
   }

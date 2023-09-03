@@ -1,1 +1,9 @@
-<p>materias works!</p>
+<div class="mb-5">
+    <button mat-flat-button (click)="onCreateSubject()" color="primary" type="button">
+        <mat-icon>add</mat-icon>
+        Create Subjects
+    </button>
+</div>
+
+<app-materias-table [dataSource]="(subjects$|async)||[]" (deleteSubject)="onDeleteSubject($event)"
+    (editSubject)="onEditSubject($event)"></app-materias-table>

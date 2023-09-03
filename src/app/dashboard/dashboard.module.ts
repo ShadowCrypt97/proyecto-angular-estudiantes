@@ -9,6 +9,7 @@ import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MateriasComponent } from './pages/materias/materias.component';
+import { MateriasModule } from './pages/materias/materias.module';
 
 
 
@@ -17,7 +18,6 @@ import { MateriasComponent } from './pages/materias/materias.component';
     DashboardComponent,
     NavMenuComponent,
     ToolbarComponent,
-    MateriasComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +25,7 @@ import { MateriasComponent } from './pages/materias/materias.component';
     InscripcionesModule,
     SharedModule,
     MatSidenavModule,
-    MatToolbarModule,
+    MatToolbarModule
   ],
   exports: [
     DashboardComponent

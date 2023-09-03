@@ -21,7 +21,6 @@ export class UserEffects {
 
       ofType(UserActions.loadUsers),
       switchMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.getUsersFromDB().pipe(
           map(data => UserActions.loadUsersSuccess({ data })),
           catchError(error => of(UserActions.loadUsersFailure({ error }))))
@@ -70,7 +69,7 @@ export class UserEffects {
             id: data.id,
             data: data
           })),
-          catchError(error => of(UserActions.createUserFailure({ error }))))
+          catchError(error => of(UserActions.updateUserFailure({ error }))))
       )
     );
   });
@@ -89,7 +88,7 @@ export class UserEffects {
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.deleteUser(action.id).pipe(
           map(() => UserActions.deleteUserSuccess()),
-          catchError(error => of(UserActions.createUserFailure({ error }))))
+          catchError(error => of(UserActions.deleteUserFailure({ error }))))
       )
     )
   })
