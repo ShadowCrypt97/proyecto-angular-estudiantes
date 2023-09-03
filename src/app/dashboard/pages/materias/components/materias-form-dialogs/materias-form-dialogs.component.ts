@@ -16,7 +16,6 @@ import { MateriasActions } from '../../store/materias.actions';
 export class MateriasFormDialogsComponent {
   editingSubject?: Subject;
   subjectForm: FormGroup;
-  roleOptions$: Observable<Role[]>
 
   private random() {
     return Math.random().toString(36).substr(2);
@@ -44,8 +43,6 @@ export class MateriasFormDialogsComponent {
       this.subjectForm.get('subject_name')?.setValue(this.data.subject_name);
       this.subjectForm.get('description')?.setValue(this.data.description);
     }
-
-    this.roleOptions$ = this.store.select(selectRole)
   }
   ngOnInit(): void {
     this.store.dispatch(MateriasActions.loadMaterias())

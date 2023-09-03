@@ -1,1 +1,9 @@
-<p>inscripciones works!</p>
+<div class="mb-5">
+    <button mat-flat-button (click)="onCreateInscription()" color="primary" type="button">
+        <mat-icon>add</mat-icon>
+        Create Inscriptions
+    </button>
+</div>
+
+<app-inscripciones-table [dataSource]="(inscriptions$|async)||[]" (deleteInscription)="onDeleteInscription($event)"
+    (editInscription)="onEditInscription($event)"></app-inscripciones-table>

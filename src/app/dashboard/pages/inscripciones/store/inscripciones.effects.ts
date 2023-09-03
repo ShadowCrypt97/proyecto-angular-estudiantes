@@ -8,19 +8,18 @@ import { InscripcionesActions } from './inscripciones.actions';
 @Injectable()
 export class InscripcionesEffects {
 
-  loadInscripcioness$ = createEffect(() => {
+  loadInscripciones$ = createEffect(() => {
     return this.actions$.pipe(
 
-      ofType(InscripcionesActions.loadInscripcioness),
+      ofType(InscripcionesActions.loadInscripciones),
       concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
         EMPTY.pipe(
-          map(data => InscripcionesActions.loadInscripcionessSuccess({ data })),
-          catchError(error => of(InscripcionesActions.loadInscripcionessFailure({ error }))))
+          map(data => InscripcionesActions.loadInscripcionesSuccess({ data })),
+          catchError(error => of(InscripcionesActions.loadInscripcionesFailure({ error }))))
       )
     );
   });
 
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions) { }
 }

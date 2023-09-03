@@ -1,1 +1,52 @@
-<p>inscripciones-form-dialogs works!</p>
+<h1 mat-dialog-title>
+    {{editingInscription ?
+    'Editing to '+ editingInscription.id:
+    'Creating Inscription'}}
+</h1>
+<div mat-dialog-content>
+    <form class="grid justify-content-end p-3" [formGroup]="subjectForm">
+        <div class="col-4">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Select Student</mat-label>
+                <mat-select formControlName="student" name="student">
+                    <mat-option *ngFor="let student of (studentOptions$|async)" [value]="student.id">
+                        {{student.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let error of inscriptionForm.get('studentId')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Select Course</mat-label>
+                <mat-select formControlName="course" name="course">
+                    <mat-option *ngFor="let course of (courseOptions$|async)" [value]="course.id">
+                        {{course.id}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let error of inscriptionForm.get('courseId')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Select Subject</mat-label>
+                <mat-select formControlName="subject" name="subject">
+                    <mat-option *ngFor="let course of (subjectOptions$|async)" [value]="subject.id">
+                        {{subject.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let error of inscriptionForm.get('subjectId')?.errors | keyvalue">
+                    {{ error | controlErrorMessages }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="onSubmit()" type="submit" mat-button>Guardar</button>
+</div>
