@@ -5,6 +5,10 @@ import { CursosFormDialogsComponent } from './components/cursos-form-dialogs/cur
 import { CursosTableComponent } from './components/cursos-table/cursos-table.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CursosRoutingModule } from './cursos-routing.module';
+import { StoreModule } from '@ngrx/store';
+import * as fromCursos from './store/cursos.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CursosEffects } from './store/cursos.effects';
 
 
 
@@ -17,7 +21,9 @@ import { CursosRoutingModule } from './cursos-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    CursosRoutingModule
+    CursosRoutingModule,
+    StoreModule.forFeature(fromCursos.cursosFeatureKey, fromCursos.reducer),
+    EffectsModule.forFeature([CursosEffects])
   ],
   exports: [
     CursosComponent

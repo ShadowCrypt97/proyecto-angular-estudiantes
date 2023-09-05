@@ -1,75 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, delay, of, take } from 'rxjs';
-import { Course, CreateCourse, UpdateCourse } from './models/course.model';
+import { Observable } from 'rxjs';
+import { Course, CreateCourse, UpdateCourse, expandedCourse } from './models/course.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Subject } from '../materias/models/subejct.model';
 
-const CURSOS_DB: Observable<Course[]> = of(
-  [
-    {
-      id: 1,
-      subjectId: 1,
-      initialDate: "01/01/2023",
-      endDate: "01/07/2023"
-    },
-    {
-      id: 2,
-      subjectId: 2,
-      initialDate: "01/01/2023",
-      endDate: "01/07/2023"
-    },
-    {
-      id: 3,
-      subjectId: 3,
-      initialDate: "01/01/2023",
-      endDate: "01/07/2023"
-    }
-  ]
-).pipe(delay(1000));
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursosService {
-  private _courses$ = new BehaviorSubject<Course[]>([]);
-  private courses$ = this._courses$.asObservable();
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
 
   }
 
-  loadCourses(): void {
-    CURSOS_DB.subscribe({
-      next: (coursesfromDB) => this._courses$.next(coursesfromDB)
-    })
-
+  getSubjects(): Observable<Subject[]> {
+    return this.httpClient.get<Subject[]>(environment.baseApiUrl + '/roles');
   }
 
-  getCourses(): Observable<Course[]> {
-    return this.courses$
-  }
-  createCourse(course: CreateCourse): void {
-    this.courses$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._courses$.next([...actualArray, { ...course, id: actualArray.length + 1 }])
-        console.log(course)
-      }
-    })
+  createCourse(course: CreateCourse): Observable<expandedCourse> {
+    return this.httpClient.post<expandedCourse>(environment.baseApiUrl + '/courses', course);
   }
 
-  updateCourseById(id: number, courseUpdated: UpdateCourse): void {
-    this.courses$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._courses$.next(
-          actualArray.map((course) => (course.id === id) ? { ...course, ...courseUpdated } : course)
-        )
-      }
-    })
+  updateCourseById(id: number, courseUpdated: UpdateCourse): Observable<expandedCourse> {
+    return this.httpClient.put<expandedCourse>(environment.baseApiUrl + '/courses/' + id, courseUpdated)
   }
 
-  deleteCourseById(id: number): void {
-    this.courses$.pipe(take(1)).subscribe({
-      next: (actualArray) => {
-        this._courses$.next(actualArray.filter((courseToDelete) => courseToDelete.id !== id))
-      }
-    })
+  deleteCourseById(id: number) {
+    return this.httpClient.delete<Course>(environment.baseApiUrl + '/courses/' + id);
   }
 }

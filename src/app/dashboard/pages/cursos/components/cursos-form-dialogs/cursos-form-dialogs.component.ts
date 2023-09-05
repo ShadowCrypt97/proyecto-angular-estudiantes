@@ -2,6 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Course } from '../../models/course.model';
+import { Observable } from 'rxjs';
+import { Subject } from '../../../materias/models/subejct.model';
+import { Store } from '@ngrx/store';
+import { selectSubject } from '../../store/cursos.selectors';
 
 @Component({
   selector: 'app-cursos-form-dialogs',
@@ -11,9 +15,12 @@ import { Course } from '../../models/course.model';
 export class CursosFormDialogsComponent {
   editingCourse?: Course;
   courseForm: FormGroup;
+  subjectOptions$: Observable<Subject[]>
+
   constructor(
     private dialogRef: MatDialogRef<CursosFormDialogsComponent>,
     private formBuilder: FormBuilder,
+    private store: Store,
     @Inject(MAT_DIALOG_DATA) private data?: Course
   ) {
     this.courseForm = this.formBuilder.group(
@@ -31,6 +38,7 @@ export class CursosFormDialogsComponent {
         ]]
       }
     )
+    this.subjectOptions$ = this.store.select(selectSubject);
 
     if (this.data) {
       this.editingCourse = this.data;

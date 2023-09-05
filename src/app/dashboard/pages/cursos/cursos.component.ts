@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Course } from './models/course.model';
+import { Course, CreateCourse, expandedCourse } from './models/course.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { CursosService } from './cursos.service';
 import { CursosFormDialogsComponent } from './components/cursos-form-dialogs/cursos-form-dialogs.component';
+import { Store } from '@ngrx/store';
+import { Subject } from '../materias/models/subejct.model';
+import { selectAuthUser } from 'src/app/store/auth/auth.selectors';
+import { CursosActions } from './store/cursos.actions';
+import { selectCourse } from './store/cursos.selectors';
 
 @Component({
   selector: 'app-cursos',
@@ -12,12 +17,22 @@ import { CursosFormDialogsComponent } from './components/cursos-form-dialogs/cur
   styleUrls: ['./cursos.component.scss']
 })
 export class CursosComponent {
-  public courses$: Observable<Course[]>;
+  public courses$: Observable<expandedCourse[]>;
+  token!: string | null;
+
   constructor(private matDialog: MatDialog,
     private coursesService: CursosService,
-    private notificationService: NotificationService) {
-    this.coursesService.loadCourses();
-    this.courses$ = this.coursesService.getCourses();
+    private notificationService: NotificationService,
+    private store: Store) {
+    this.courses$ = this.store.select(selectCourse);
+    this.store.select(selectAuthUser).subscribe({
+      next: (authUser) => {
+        this.token = authUser ? authUser.token : null
+      }
+    })
+  }
+  ngOnInit(): void {
+    this.store.dispatch(CursosActions.loadCursos())
   }
 
   onCreateCourse(): void {
@@ -27,11 +42,14 @@ export class CursosComponent {
       .subscribe({
         next: (v) => {
           if (v) {
-            this.coursesService.createCourse({
+            const course: CreateCourse = {
               subjectId: v.subjectId,
               initialDate: v.initialDate,
               endDate: v.endDate
-            })
+            }
+            // this.store.dispatch(CursosActions.createCursos({
+            //   payload: course
+            // }));
             this.notificationService.sendSuccessNotification('Course created succesfully')
           }
         }
@@ -42,7 +60,7 @@ export class CursosComponent {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete course ${course.id}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          this.coursesService.deleteCourseById(course.id);
+          //this.store.dispatch(CursosActions.deleteCursos({ id: course.id }))
           this.notificationService.sendSuccessNotification(`The course ${course.id} has been deleted.`, 'Deleted!');
         }
       })
@@ -57,7 +75,14 @@ export class CursosComponent {
       .subscribe({
         next: (courseUpdated) => {
           if (courseUpdated) {
-            this.coursesService.updateCourseById(courseToEdit.id, courseUpdated);
+            // this.store.dispatch(CursosActions.updateCursos({
+            //   id: courseToEdit.id,
+            //   payload: {
+            //     subjectId: courseUpdated.subjectId,
+            //     initialDate: courseUpdated.initialDate,
+            //     endDate: courseUpdated.endDate
+            //   }
+            // }));
             this.notificationService.sendSuccessNotification('Course modified succesfully');
           }
         }
