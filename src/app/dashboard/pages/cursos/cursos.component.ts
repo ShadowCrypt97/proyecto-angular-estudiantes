@@ -39,11 +39,11 @@ export class CursosComponent {
   }
 
   onDeleteCourse(course: Course): void {
-    this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete course ${course.id_course}?`)
+    this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete course ${course.id}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          this.coursesService.deleteCourseById(course.id_course);
-          this.notificationService.sendSuccessNotification(`The course ${course.id_course} has been deleted.`, 'Deleted!');
+          this.coursesService.deleteCourseById(course.id);
+          this.notificationService.sendSuccessNotification(`The course ${course.id} has been deleted.`, 'Deleted!');
         }
       })
   }
@@ -57,7 +57,7 @@ export class CursosComponent {
       .subscribe({
         next: (courseUpdated) => {
           if (courseUpdated) {
-            this.coursesService.updateCourseById(courseToEdit.id_course, courseUpdated);
+            this.coursesService.updateCourseById(courseToEdit.id, courseUpdated);
             this.notificationService.sendSuccessNotification('Course modified succesfully');
           }
         }

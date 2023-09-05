@@ -4,7 +4,7 @@
     'Creating Inscription'}}
 </h1>
 <div mat-dialog-content>
-    <form class="grid justify-content-end p-3" [formGroup]="subjectForm">
+    <form class="grid justify-content-end p-3" [formGroup]="inscriptionForm">
         <div class="col-4">
             <mat-form-field class="w-full" appearance="outline">
                 <mat-label>Select Student</mat-label>
@@ -35,8 +35,8 @@
             <mat-form-field class="w-full" appearance="outline">
                 <mat-label>Select Subject</mat-label>
                 <mat-select formControlName="subject" name="subject">
-                    <mat-option *ngFor="let course of (subjectOptions$|async)" [value]="subject.id">
-                        {{subject.name}}
+                    <mat-option *ngFor="let subject of (subjectOptions$|async)" [value]="subject.id">
+                        {{subject.subject_name}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngFor="let error of inscriptionForm.get('subjectId')?.errors | keyvalue">

@@ -5,19 +5,19 @@ import { Course, CreateCourse, UpdateCourse } from './models/course.model';
 const CURSOS_DB: Observable<Course[]> = of(
   [
     {
-      id_course: 1,
+      id: 1,
       id_subject: 1,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
     },
     {
-      id_course: 2,
+      id: 2,
       id_subject: 2,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
     },
     {
-      id_course: 3,
+      id: 3,
       id_subject: 3,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
@@ -49,7 +49,7 @@ export class CursosService {
   createCourse(course: CreateCourse): void {
     this.courses$.pipe(take(1)).subscribe({
       next: (actualArray) => {
-        this._courses$.next([...actualArray, { ...course, id_course: actualArray.length + 1 }])
+        this._courses$.next([...actualArray, { ...course, id: actualArray.length + 1 }])
         console.log(course)
       }
     })
@@ -59,7 +59,7 @@ export class CursosService {
     this.courses$.pipe(take(1)).subscribe({
       next: (actualArray) => {
         this._courses$.next(
-          actualArray.map((course) => (course.id_course === id) ? { ...course, ...courseUpdated } : course)
+          actualArray.map((course) => (course.id === id) ? { ...course, ...courseUpdated } : course)
         )
       }
     })
@@ -68,7 +68,7 @@ export class CursosService {
   deleteCourseById(id: number): void {
     this.courses$.pipe(take(1)).subscribe({
       next: (actualArray) => {
-        this._courses$.next(actualArray.filter((courseToDelete) => courseToDelete.id_course !== id))
+        this._courses$.next(actualArray.filter((courseToDelete) => courseToDelete.id !== id))
       }
     })
   }
