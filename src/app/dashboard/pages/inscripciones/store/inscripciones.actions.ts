@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { InscriptionExpanded } from '../models/inscripciones.model';
+import { CreateInscription, Inscription, InscriptionExpanded, UpdateInscription } from '../models/inscripciones.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Student } from '../../estudiantes/models/student.model';
 import { Course } from '../../cursos/models/course.model';
@@ -23,5 +23,17 @@ export const InscripcionesActions = createActionGroup({
     'Load Subjects': emptyProps(),
     'Load Subjects Success': props<{ data: Subject[] }>(),
     'Load Subjects Failure': props<{ error: HttpErrorResponse }>(),
+
+    'Create Inscriptions': props<{ payload: CreateInscription }>(),
+    'Create Inscriptions Success': props<{ data: Inscription }>(),
+    'Create Inscriptions Failure': props<{ error: HttpErrorResponse }>(),
+
+    'Update Inscriptions': props<{ id: number, payload: UpdateInscription }>(),
+    'Update Inscriptions Success': props<{ id: number, data: Inscription }>(),
+    'Update Inscriptions Failure': props<{ error: HttpErrorResponse }>(),
+
+    'Delete Inscriptions': props<{ id: number }>(),
+    'Delete Inscriptions Success': emptyProps(),
+    'Delete Inscriptions Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

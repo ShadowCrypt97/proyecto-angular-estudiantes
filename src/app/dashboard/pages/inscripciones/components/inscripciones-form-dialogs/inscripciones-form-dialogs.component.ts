@@ -5,10 +5,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { InscripcionesActions } from '../../store/inscripciones.actions';
 import { Student } from '../../../estudiantes/models/student.model';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Course } from '../../../cursos/models/course.model';
-import { Subject } from '../../../materias/models/subejct.model';
-import { selectCourse, selectStudent, selectSubject } from '../../store/inscripciones.selectors';
+import { selectCourse, selectStudent } from '../../store/inscripciones.selectors';
+import { HttpClient } from '@angular/common/http';
+import { InscripcionesService } from '../../inscripciones.service';
 
 @Component({
   selector: 'app-inscripciones-form-dialogs',
@@ -20,7 +21,6 @@ export class InscripcionesFormDialogsComponent {
   inscriptionForm: FormGroup;
   studentOptions$: Observable<Student[]>
   courseOptions$: Observable<Course[]>
-  subjectOptions$: Observable<Subject[]>
   private random() {
     return Math.random().toString(36).substr(2);
   };
@@ -33,39 +33,39 @@ export class InscripcionesFormDialogsComponent {
     private dialogRef: MatDialogRef<InscripcionesFormDialogsComponent>,
     private formBuilder: FormBuilder,
     private store: Store,
+    private inscriptionsService: InscripcionesService,
     @Inject(MAT_DIALOG_DATA) private data?: Inscription
   ) {
     this.inscriptionForm = this.formBuilder.group(
       {
         student: [null, [Validators.required]],
-        course: [null, [Validators.required]],
-        subject: [null, [Validators.required]]
+        course: [null, [Validators.required]]
       }
     )
 
-    if (this.data) {
-      this.editingInscription = this.data;
-      this.inscriptionForm.get('estudiante')?.setValue(this.data.studentId);
-      this.inscriptionForm.get('curso')?.setValue(this.data.courseId);
-      this.inscriptionForm.get('subject')?.setValue(this.data.subjectId);
-    }
-
     this.studentOptions$ = this.store.select(selectStudent);
     this.courseOptions$ = this.store.select(selectCourse);
-    this.subjectOptions$ = this.store.select(selectSubject);
-
   }
   ngOnInit(): void {
     this.store.dispatch(InscripcionesActions.loadStudents());
     this.store.dispatch(InscripcionesActions.loadCourses());
-    this.store.dispatch(InscripcionesActions.loadSubjects());
   }
   onSubmit(): void {
     if (this.inscriptionForm.invalid) {
       this.inscriptionForm.markAllAsTouched();
     } else {
-      const inscription: Inscription = this.inscriptionForm.value
-      this.dialogRef.close(inscription);
+      let inscription = this.inscriptionForm.value
+      this.inscriptionsService.getCourseById(inscription.course).pipe(
+        take(1)
+      ).subscribe({
+        next: (course) => {
+          inscription = {
+            ...inscription,
+            subject: course.subjectId
+          }
+          this.dialogRef.close(inscription);
+        }
+      })
     }
   }
 }

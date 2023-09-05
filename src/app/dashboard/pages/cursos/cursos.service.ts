@@ -6,19 +6,19 @@ const CURSOS_DB: Observable<Course[]> = of(
   [
     {
       id: 1,
-      id_subject: 1,
+      subjectId: 1,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
     },
     {
       id: 2,
-      id_subject: 2,
+      subjectId: 2,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
     },
     {
       id: 3,
-      id_subject: 3,
+      subjectId: 3,
       initialDate: "01/01/2023",
       endDate: "01/07/2023"
     }

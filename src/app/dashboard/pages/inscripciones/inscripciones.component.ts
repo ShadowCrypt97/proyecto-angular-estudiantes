@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateInscription, Inscription, UpdateInscription } from './models/inscripciones.model';
+import { CreateInscription, Inscription } from './models/inscripciones.model';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { Store } from '@ngrx/store';
@@ -38,33 +38,12 @@ export class InscripcionesComponent {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete inscription ${inscription.id}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          //this.store.dispatch(InscripcionesActions.deleteInscription({ id: inscription.id }))
+          this.store.dispatch(InscripcionesActions.deleteInscriptions({ id: inscription.id }))
           this.notificationService.sendSuccessNotification(`The inscription ${inscription.id} has been deleted.`, 'Deleted!');
         }
       })
   }
-  onEditInscription(inscriptionToEdit: Inscription) {
-    this.matDialog
-      .open(InscripcionesFormDialogsComponent, {
-        data: inscriptionToEdit
-      })
-      .afterClosed()
-      .subscribe({
-        next: (inscriptionUpdated) => {
-          if (inscriptionUpdated) {
-            // this.store.dispatch(InscripcionesActions.updateInscription({
-            //   id: inscriptionToEdit.id,
-            //   payload: {
-            //     studentId: inscriptionUpdated.studentId,
-            //     courseId: inscriptionUpdated.courseId,
-            //     subjectId: inscriptionUpdated.subjectId
-            //   }
-            // }))
-            this.notificationService.sendSuccessNotification('Inscription modified succesfully');
-          }
-        }
-      });
-  }
+
   onCreateInscription() {
     this.matDialog
       .open(InscripcionesFormDialogsComponent)
@@ -73,13 +52,13 @@ export class InscripcionesComponent {
         next: (v) => {
           if (v) {
             const inscription: CreateInscription = {
-              studentId: v.studentId,
-              courseId: v.courseId,
-              subjectId: v.subjectId
+              studentId: v.student,
+              courseId: v.course,
+              subjectId: v.subject
             }
-            // this.store.dispatch(InscripcionesActions.createInscription({
-            //   payload: inscription
-            // }));
+            this.store.dispatch(InscripcionesActions.createInscriptions({
+              payload: inscription
+            }));
             this.notificationService.sendSuccessNotification('Inscription created succesfully')
           }
         }

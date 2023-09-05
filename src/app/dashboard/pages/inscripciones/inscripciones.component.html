@@ -5,5 +5,5 @@
     </button>
 </div>
 
-<app-inscripciones-table [dataSource]="(inscriptions$|async)||[]" (deleteInscription)="onDeleteInscription($event)"
-    (editInscription)="onEditInscription($event)"></app-inscripciones-table>
+<app-inscripciones-table [dataSource]="(inscriptions$|async)||[]"
+    (deleteInscription)="onDeleteInscription($event)"></app-inscripciones-table>

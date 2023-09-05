@@ -34,7 +34,7 @@ export class CursosFormDialogsComponent {
 
     if (this.data) {
       this.editingCourse = this.data;
-      this.courseForm.get('subjectId')?.setValue(this.data.id_subject);
+      this.courseForm.get('subjectId')?.setValue(this.data.subjectId);
       this.courseForm.get('initialDate')?.setValue(this.data.initialDate);
       this.courseForm.get('endDate')?.setValue(this.data.endDate);
     }
