@@ -2,13 +2,13 @@
 
     <ng-container matColumnDef="idCourse">
         <th mat-header-cell *matHeaderCellDef> ID Course</th>
-        <td mat-cell *matCellDef="let course"> {{course.id_course}} </td>
+        <td mat-cell *matCellDef="let course"> {{course.id}} </td>
     </ng-container>
 
 
     <ng-container matColumnDef="subject">
         <th mat-header-cell *matHeaderCellDef> Subject Name </th>
-        <td mat-cell *matCellDef="let course"> {{course.id_subject}}</td>
+        <td mat-cell *matCellDef="let course"> {{course.subject.subject_name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="initialDate">

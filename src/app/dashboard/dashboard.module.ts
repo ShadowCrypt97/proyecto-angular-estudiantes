@@ -22,7 +22,6 @@ import { MateriasModule } from './pages/materias/materias.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    InscripcionesModule,
     SharedModule,
     MatSidenavModule,
     MatToolbarModule

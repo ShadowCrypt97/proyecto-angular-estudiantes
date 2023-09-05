@@ -6,9 +6,9 @@ import { CursosTableComponent } from './components/cursos-table/cursos-table.com
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { StoreModule } from '@ngrx/store';
-import * as fromCursos from './store/cursos.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CursosEffects } from './store/cursos.effects';
+import { cursosFeature } from './store/cursos.reducer';
 
 
 
@@ -22,7 +22,7 @@ import { CursosEffects } from './store/cursos.effects';
     CommonModule,
     SharedModule,
     CursosRoutingModule,
-    StoreModule.forFeature(fromCursos.cursosFeatureKey, fromCursos.reducer),
+    StoreModule.forFeature(cursosFeature),
     EffectsModule.forFeature([CursosEffects])
   ],
   exports: [

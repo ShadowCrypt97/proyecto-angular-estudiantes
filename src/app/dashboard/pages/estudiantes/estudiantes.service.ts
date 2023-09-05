@@ -18,7 +18,7 @@ export class EstudiantesService {
   }
 
   loadStudents(): void {
-    this.httpClient.get<Student[]>(environment.baseApiUrl + '/estudiantes').subscribe({
+    this.httpClient.get<Student[]>(environment.baseApiUrl + '/students').subscribe({
       next: (response) => {
         this._students$.next(response);
       },
@@ -32,7 +32,7 @@ export class EstudiantesService {
     return this.students$
   }
   createStudents(student: CreateStudent): void {
-    this.httpClient.post<Student>(environment.baseApiUrl + '/estudiantes', student)
+    this.httpClient.post<Student>(environment.baseApiUrl + '/students', student)
       .pipe(
         mergeMap(
           (studentCreated) => this.students$.pipe(
@@ -51,7 +51,7 @@ export class EstudiantesService {
   }
 
   updateStudentById(id: number, studentUpdated: UpdateStudent): void {
-    this.httpClient.put<Student>(environment.baseApiUrl + '/estudiantes/' + id, studentUpdated)
+    this.httpClient.put<Student>(environment.baseApiUrl + '/students/' + id, studentUpdated)
       .pipe(
         mergeMap(
           (studentUpdated) => this.students$.pipe(
@@ -67,7 +67,7 @@ export class EstudiantesService {
   }
 
   deleteStudentById(id: number): void {
-    this.httpClient.delete(environment.baseApiUrl + '/estudiantes/' + id)
+    this.httpClient.delete(environment.baseApiUrl + '/students/' + id)
       .pipe(
         mergeMap(() =>
           this.students$.pipe(

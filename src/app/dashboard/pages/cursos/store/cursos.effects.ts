@@ -15,13 +15,13 @@ import { Store } from '@ngrx/store';
 export class CursosEffects {
   public subjectsOpts$: Observable<Subject[]>;
 
-  loadCursoss$ = createEffect(() => {
+  loadCursos$ = createEffect(() => {
     return this.actions$.pipe(
 
       ofType(CursosActions.loadCursos),
       concatMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
+        this.getCoursesFromDB().pipe(
           map(data => CursosActions.loadCursosSuccess({ data })),
           catchError(error => of(CursosActions.loadCursosFailure({ error }))))
       )

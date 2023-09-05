@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from './models/student.model';
 import { MatDialog } from '@angular/material/dialog';
-import { EstudiantesService } from './estudiantes.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { EstudiantesFormDialogsComponent } from './components/estudiantes-form-dialogs/estudiantes-form-dialogs.component';
+import { EstudiantesService } from './estudiantes.service';
 
 @Component({
   selector: 'app-estudiantes',

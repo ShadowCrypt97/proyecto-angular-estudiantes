@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Subject } from '../../../materias/models/subejct.model';
 import { Store } from '@ngrx/store';
 import { selectSubject } from '../../store/cursos.selectors';
+import { CursosActions } from '../../store/cursos.actions';
 
 @Component({
   selector: 'app-cursos-form-dialogs',
@@ -26,8 +27,7 @@ export class CursosFormDialogsComponent {
     this.courseForm = this.formBuilder.group(
       {
         subjectId: [null, [
-          Validators.required,
-          Validators.maxLength(3)
+          Validators.required
         ]
         ],
         initialDate: [null, [
@@ -42,16 +42,21 @@ export class CursosFormDialogsComponent {
 
     if (this.data) {
       this.editingCourse = this.data;
+      console.log(this.editingCourse);
       this.courseForm.get('subjectId')?.setValue(this.data.subjectId);
       this.courseForm.get('initialDate')?.setValue(this.data.initialDate);
       this.courseForm.get('endDate')?.setValue(this.data.endDate);
     }
   }
+  ngOnInit(): void {
+    this.store.dispatch(CursosActions.loadSubject());
+  }
   onSubmit(): void {
     if (this.courseForm.invalid) {
       this.courseForm.markAllAsTouched();
     } else {
-      this.dialogRef.close(this.courseForm.value);
+      const course: Course = this.courseForm.value
+      this.dialogRef.close(course);
     }
   }
 }

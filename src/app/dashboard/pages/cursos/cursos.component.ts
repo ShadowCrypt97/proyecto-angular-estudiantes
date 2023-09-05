@@ -47,9 +47,9 @@ export class CursosComponent {
               initialDate: v.initialDate,
               endDate: v.endDate
             }
-            // this.store.dispatch(CursosActions.createCursos({
-            //   payload: course
-            // }));
+            this.store.dispatch(CursosActions.createCourses({
+              payload: course
+            }));
             this.notificationService.sendSuccessNotification('Course created succesfully')
           }
         }
@@ -60,7 +60,7 @@ export class CursosComponent {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete course ${course.id}?`)
       .then((result) => {
         if (result.isConfirmed) {
-          //this.store.dispatch(CursosActions.deleteCursos({ id: course.id }))
+          this.store.dispatch(CursosActions.deleteCourses({ id: course.id }))
           this.notificationService.sendSuccessNotification(`The course ${course.id} has been deleted.`, 'Deleted!');
         }
       })
@@ -75,14 +75,14 @@ export class CursosComponent {
       .subscribe({
         next: (courseUpdated) => {
           if (courseUpdated) {
-            // this.store.dispatch(CursosActions.updateCursos({
-            //   id: courseToEdit.id,
-            //   payload: {
-            //     subjectId: courseUpdated.subjectId,
-            //     initialDate: courseUpdated.initialDate,
-            //     endDate: courseUpdated.endDate
-            //   }
-            // }));
+            this.store.dispatch(CursosActions.updateCourses({
+              id: courseToEdit.id,
+              payload: {
+                subjectId: courseUpdated.subjectId,
+                initialDate: courseUpdated.initialDate,
+                endDate: courseUpdated.endDate
+              }
+            }));
             this.notificationService.sendSuccessNotification('Course modified succesfully');
           }
         }

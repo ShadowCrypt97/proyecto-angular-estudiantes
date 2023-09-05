@@ -16,7 +16,7 @@ export class CursosService {
   }
 
   getSubjects(): Observable<Subject[]> {
-    return this.httpClient.get<Subject[]>(environment.baseApiUrl + '/roles');
+    return this.httpClient.get<Subject[]>(environment.baseApiUrl + '/subjects');
   }
 
   createCourse(course: CreateCourse): Observable<expandedCourse> {
