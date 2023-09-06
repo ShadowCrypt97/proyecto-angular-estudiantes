@@ -1,5 +1,5 @@
 <div class="mb-5">
-    <button mat-flat-button (click)="onCreateCourse()" color="primary" type="button">
+    <button mat-flat-button *ngIf="(isAdmin$|async)" (click)="onCreateCourse()" color="primary" type="button">
         <mat-icon>add</mat-icon>
         Create Courses
     </button>

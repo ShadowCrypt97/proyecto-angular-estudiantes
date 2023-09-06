@@ -31,6 +31,12 @@
       "courseId": 1,
       "subjectId": 1,
       "id": 3
+    },
+    {
+      "studentId": 2,
+      "courseId": 3,
+      "subjectId": 2,
+      "id": 4
     }
   ],
   "subjects": [
@@ -60,9 +66,9 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores veniam, officia et autem consectetur, cumque labore delectus quis accusantium voluptatem temporibus fuga vel. Consequuntur est cum cupiditate nam pariatur tempore."
     },
     {
-      "subject_name": "Express.js",
-      "description": "Cualquier descripción 1",
-      "id": 6
+      "subject_name": "Next Js",
+      "description": "Next Js es un framework de desarrollo front-end utilizado para desarrollar aplicaciones hibridas",
+      "id": 7
     }
   ],
   "students": [
@@ -79,6 +85,13 @@
       "email": "sergio.gomez@gmail.com",
       "registrationDate": "2023-08-08T04:31:57.637Z",
       "id": 3
+    },
+    {
+      "name": "Paula Camila",
+      "surname": "Cuervo Roa",
+      "email": "paula.cuervo@mail.com",
+      "registrationDate": "2023-09-06T01:40:43.685Z",
+      "id": 4
     }
   ],
   "users": [

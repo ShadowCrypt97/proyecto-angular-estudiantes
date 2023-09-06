@@ -29,12 +29,12 @@
                     visibility
                 </mat-icon>
             </button>
-            <button (click)="editCourse.emit(course)" mat-icon-button>
+            <button *ngIf="(isAdmin$|async)" (click)="editCourse.emit(course)" mat-icon-button>
                 <mat-icon>
                     edit
                 </mat-icon>
             </button>
-            <button (click)="deleteCourse.emit(course)" mat-icon-button color="warn">
+            <button *ngIf="(isAdmin$|async)" (click)="deleteCourse.emit(course)" mat-icon-button color="warn">
                 <mat-icon>
                     delete
                 </mat-icon>
