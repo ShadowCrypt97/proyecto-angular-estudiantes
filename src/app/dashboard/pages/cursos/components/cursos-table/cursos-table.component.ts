@@ -20,6 +20,9 @@ export class CursosTableComponent {
 
   @Output()
   editCourse = new EventEmitter<Course>();
+
+  @Output()
+  detailCourse = new EventEmitter<Course>();
   public isAdmin$: Observable<boolean>;
 
   constructor(private store: Store) {

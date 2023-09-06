@@ -10,6 +10,10 @@ export const CursosActions = createActionGroup({
     'Load Cursos Success': props<{ data: expandedCourse[] }>(),
     'Load Cursos Failure': props<{ error: unknown }>(),
 
+    'Load Cursos Detail': props<{ id: number }>(),
+    'Load Cursos Detail Success': props<{ data: expandedCourse }>(),
+    'Load Cursos Detail Failure': props<{ error: unknown }>(),
+
     'Load Subject': emptyProps(),
     'Load Subject Success': props<{ data: Subject[] }>(),
     'Load Subject Failure': props<{ error: unknown }>(),

@@ -57,6 +57,10 @@ export class CursosComponent {
       });
   }
 
+  onDetailCourse(): void {
+
+  }
+
   onDeleteCourse(course: Course): void {
     this.notificationService.sendConfirm("You won't be able to revert this!", `¿Are you sure to delete course ${course.id}?`)
       .then((result) => {

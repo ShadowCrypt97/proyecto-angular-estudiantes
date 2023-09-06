@@ -7,6 +7,7 @@ export const cursosFeatureKey = 'cursos';
 
 export interface State {
   data: expandedCourse[],
+  detailData: expandedCourse | null,
   subjectOptions: Subject[],
   loading: boolean,
   error: unknown
@@ -14,6 +15,7 @@ export interface State {
 
 export const initialState: State = {
   data: [],
+  detailData: null,
   subjectOptions: [],
   loading: false,
   error: null
@@ -55,6 +57,26 @@ export const reducer = createReducer(
     }
   }),
   on(CursosActions.loadSubjectFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error,
+      loading: false
+    }
+  }),
+  on(CursosActions.loadCursosDetail, state => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+  on(CursosActions.loadCursosDetailSuccess, (state, action) => {
+    return {
+      ...state,
+      detailData: action.data,
+      loading: false
+    }
+  }),
+  on(CursosActions.loadCursosDetailFailure, (state, action) => {
     return {
       ...state,
       error: action.error,

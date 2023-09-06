@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class CursosEffects {
+
   public subjectsOpts$: Observable<Subject[]>;
 
   loadCursos$ = createEffect(() => {
@@ -27,6 +28,20 @@ export class CursosEffects {
       )
     );
   });
+
+  loadCursosDetail$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(CursosActions.loadCursosDetail),
+      concatMap((action) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.getCoursesDetailFromDB(action.id).pipe(
+          map(data => CursosActions.loadCursosDetailSuccess({ data })),
+          catchError(error => of(CursosActions.loadCursosDetailFailure({ error }))))
+      )
+    );
+  });
+
 
   loadSubjects$ = createEffect(() => {
     return this.actions$.pipe(
@@ -103,6 +118,9 @@ export class CursosEffects {
 
   constructor(private actions$: Actions, private store: Store, private cursosService: CursosService, private httpClient: HttpClient) {
     this.subjectsOpts$ = this.cursosService.getSubjects();
+  }
+  getCoursesDetailFromDB(id: number) {
+    return this.httpClient.get<expandedCourse>(`${environment.baseApiUrl}/courses/${id}?_expand=subject`)
   }
 
   private getCoursesFromDB(): Observable<expandedCourse[]> {

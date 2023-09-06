@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CursosComponent } from './cursos.component';
+import { CursosDetailComponent } from './pages/cursos-detail/cursos-detail.component';
 
 
 
@@ -13,7 +14,12 @@ import { CursosComponent } from './cursos.component';
       {
         path: '',
         component: CursosComponent
-      }
+      },
+      {
+        // /dashboard/users/:id
+        path: ':id',
+        component: CursosDetailComponent,
+      },
     ])
   ],
   exports: [

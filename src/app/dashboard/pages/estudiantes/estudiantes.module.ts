@@ -5,6 +5,7 @@ import { EstudiantesFormDialogsComponent } from './components/estudiantes-form-d
 import { EstudiantesTableComponent } from './components/estudiantes-table/estudiantes-table.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EstudiantesRoutingModule } from './estudiantes-routing.module';
+import { EstudiantesDetailComponent } from './pages/estudiantes-detail/estudiantes-detail.component';
 
 
 
@@ -12,7 +13,8 @@ import { EstudiantesRoutingModule } from './estudiantes-routing.module';
   declarations: [
     EstudiantesComponent,
     EstudiantesFormDialogsComponent,
-    EstudiantesTableComponent
+    EstudiantesTableComponent,
+    EstudiantesDetailComponent
   ],
   imports: [
     CommonModule,

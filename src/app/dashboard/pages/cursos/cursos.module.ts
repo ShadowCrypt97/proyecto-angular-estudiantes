@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CursosEffects } from './store/cursos.effects';
 import { cursosFeature } from './store/cursos.reducer';
+import { CursosDetailComponent } from './pages/cursos-detail/cursos-detail.component';
 
 
 
@@ -16,7 +17,8 @@ import { cursosFeature } from './store/cursos.reducer';
   declarations: [
     CursosComponent,
     CursosFormDialogsComponent,
-    CursosTableComponent
+    CursosTableComponent,
+    CursosDetailComponent
   ],
   imports: [
     CommonModule,
