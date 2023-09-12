@@ -18,7 +18,7 @@
 
     <ng-container matColumnDef="registrationDate">
         <th mat-header-cell *matHeaderCellDef> Registration Date </th>
-        <td mat-cell *matCellDef="let student"> {{student.registrationDate}} </td>
+        <td mat-cell *matCellDef="let student"> {{student.registrationDate|date}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">

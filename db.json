@@ -104,6 +104,13 @@
       "email": "paula.cuervo@mail.com",
       "registrationDate": "2023-09-06T01:40:43.685Z",
       "id": 4
+    },
+    {
+      "name": "Aura ",
+      "surname": "Roa",
+      "email": "aura.roa@gmail.com",
+      "registrationDate": "2023-09-12T04:13:20.015Z",
+      "id": 5
     }
   ],
   "users": [
