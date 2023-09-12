@@ -17,6 +17,12 @@
       "initialDate": "2023-09-15T05:00:00.000Z",
       "endDate": "2023-09-16T05:00:00.000Z",
       "id": 3
+    },
+    {
+      "subjectId": 7,
+      "initialDate": "2023-12-01T05:00:00.000Z",
+      "endDate": "2024-05-31T05:00:00.000Z",
+      "id": 4
     }
   ],
   "inscripciones": [
@@ -33,10 +39,16 @@
       "id": 3
     },
     {
-      "studentId": 2,
+      "studentId": 3,
       "courseId": 3,
       "subjectId": 2,
-      "id": 4
+      "id": 5
+    },
+    {
+      "studentId": 4,
+      "courseId": 4,
+      "subjectId": 7,
+      "id": 6
     }
   ],
   "subjects": [

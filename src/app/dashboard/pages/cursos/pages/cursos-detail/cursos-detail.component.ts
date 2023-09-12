@@ -6,7 +6,6 @@ import { Course } from '../../models/course.model';
 import { CursosActions } from '../../store/cursos.actions';
 import { selectCourseDescription, selectCourseId, selectCourseName, selectEndDate, selectIniDate } from '../../store/cursos.selectors';
 import { Observable } from 'rxjs';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cursos-detail',

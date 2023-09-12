@@ -31,6 +31,14 @@ export class EstudiantesService {
   getStudents(): Observable<Student[]> {
     return this.students$
   }
+
+  getStudentById(studentId: number): Observable<Student | undefined> {
+    return this.students$.pipe(
+      take(1),
+      map((students) => students.find((u) => u.id === studentId)),
+    )
+  }
+
   createStudents(student: CreateStudent): void {
     this.httpClient.post<Student>(environment.baseApiUrl + '/students', student)
       .pipe(

@@ -24,7 +24,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let student">
-            <button mat-icon-button>
+            <button mat-icon-button [routerLink]="student.id">
                 <mat-icon>
                     visibility
                 </mat-icon>
